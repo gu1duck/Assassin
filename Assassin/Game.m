@@ -12,7 +12,8 @@
 
 
 @implementation Game
-
+@dynamic joinPIN;
+@dynamic joinable;
 @synthesize players = _players;
 
 + (void)load {

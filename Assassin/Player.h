@@ -21,5 +21,9 @@
 
 + (NSString *) parseClassName;
 - (void) setupWithGame: (Game*) game;
+- (void) uploadAlivePhoto:(UIImage*)image;
+- (void) uploadDeadPhoto:(UIImage*)image;
+- (UIImage*) downloadAlivePhoto;
+- (UIImage*) downloadDeadPhoto;
 
 @end
