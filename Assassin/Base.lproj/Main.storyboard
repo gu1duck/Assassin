@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZLv-mf-P90">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -86,7 +87,7 @@
             </objects>
             <point key="canvasLocation" x="1252" y="-501"/>
         </scene>
-        <!--View Controller-->
+        <!--Join Game-->
         <scene sceneID="Iml-x5-Tue">
             <objects>
                 <viewController id="F2d-5c-UIx" sceneMemberID="viewController">
@@ -123,6 +124,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="uFC-ce-oOh" kind="show" id="ZJA-Xh-A61"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="be0-B1-0gO">
                                 <rect key="frame" x="200" y="320" width="200" height="1"/>
@@ -146,12 +150,13 @@
                             <constraint firstAttribute="centerX" secondItem="auY-uQ-5aY" secondAttribute="centerX" id="qMj-dX-ikk"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Join Game" id="n7k-Pb-5Qm"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rxM-FJ-IIv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1871" y="-501"/>
+            <point key="canvasLocation" x="1970" y="-863"/>
         </scene>
-        <!--View Controller-->
+        <!--New Game-->
         <scene sceneID="5qp-jH-IjC">
             <objects>
                 <viewController id="Gs5-lZ-Mmf" sceneMemberID="viewController">
@@ -162,12 +167,132 @@
                     <view key="view" contentMode="scaleToFill" id="jeo-hQ-mXn">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PG0-lL-qKg">
+                                <rect key="frame" x="0.0" y="525" width="600" height="75"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="ed7-FC-R7I"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="15"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="aP2-7X-2ZC" kind="show" id="FAC-Su-Qfm"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7uv-em-N3u">
+                                <rect key="frame" x="75" y="75" width="450" height="450"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="7uv-em-N3u" secondAttribute="height" multiplier="1:1" id="gqJ-n1-qkZ"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Attach a selfie." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y7a-6j-8I8">
+                                <rect key="frame" x="180" y="42" width="240.5" height="25"/>
+                                <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="25"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="PG0-lL-qKg" secondAttribute="trailing" id="1hC-8B-Ohl"/>
+                            <constraint firstItem="PG0-lL-qKg" firstAttribute="leading" secondItem="jeo-hQ-mXn" secondAttribute="leading" id="BhV-4u-QS3"/>
+                            <constraint firstItem="7uv-em-N3u" firstAttribute="leading" secondItem="jeo-hQ-mXn" secondAttribute="leading" constant="75" id="YUU-Gu-RpW"/>
+                            <constraint firstItem="Tqo-7Q-zDW" firstAttribute="top" secondItem="PG0-lL-qKg" secondAttribute="bottom" id="cAG-UP-WBh"/>
+                            <constraint firstAttribute="centerX" secondItem="y7a-6j-8I8" secondAttribute="centerX" id="li5-sh-IHg"/>
+                            <constraint firstAttribute="trailing" secondItem="7uv-em-N3u" secondAttribute="trailing" constant="75" id="myD-fB-WTh"/>
+                            <constraint firstAttribute="centerY" secondItem="7uv-em-N3u" secondAttribute="centerY" id="s0o-Ct-sCz"/>
+                            <constraint firstItem="7uv-em-N3u" firstAttribute="top" secondItem="y7a-6j-8I8" secondAttribute="bottom" constant="8" id="vaO-4b-oh6"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="New Game" id="Lr7-er-i1p"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pNt-vZ-fGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2492" y="-501"/>
+            <point key="canvasLocation" x="1970" y="-145"/>
+        </scene>
+        <!--Waiting for Players-->
+        <scene sceneID="cHS-0u-xVR">
+            <objects>
+                <viewController id="aP2-7X-2ZC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0pv-rl-57L"/>
+                        <viewControllerLayoutGuide type="bottom" id="kgq-ax-YE4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jbn-cO-Ylq">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TJc-ns-xCG">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hbe-Hf-006">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="1yf-xc-r99">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pPg-Dk-8Hh">
+                                <rect key="frame" x="0.0" y="525" width="600" height="75"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="eqv-kt-pDl"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="15"/>
+                                <state key="normal" title="Start Game">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="ocI-bS-Kp2" kind="show" id="l9a-Vl-HJu"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="kgq-ax-YE4" firstAttribute="top" secondItem="pPg-Dk-8Hh" secondAttribute="bottom" id="8Xw-LN-gV8"/>
+                            <constraint firstAttribute="trailing" secondItem="pPg-Dk-8Hh" secondAttribute="trailing" id="Kou-fI-GSw"/>
+                            <constraint firstItem="pPg-Dk-8Hh" firstAttribute="leading" secondItem="jbn-cO-Ylq" secondAttribute="leading" id="eGK-Ud-gAI"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Waiting for Players" id="wkH-uy-A07"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iuD-Pj-DO9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3431" y="-469"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="5R4-eY-xmQ">
+            <objects>
+                <viewController id="ocI-bS-Kp2" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ISI-bp-zSb"/>
+                        <viewControllerLayoutGuide type="bottom" id="EHI-HX-GkF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="d3L-Dh-a7e">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HWK-0m-9Hc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4112" y="-469"/>
         </scene>
         <!--Test View Controller-->
         <scene sceneID="ufC-wZ-h7g">
@@ -204,5 +329,67 @@
             </objects>
             <point key="canvasLocation" x="440" y="-501"/>
         </scene>
+        <!--Join Game-->
+        <scene sceneID="HGg-Hg-ipy">
+            <objects>
+                <viewController id="uFC-ce-oOh" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TgT-IR-nfF"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ng6-zj-1rp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="FZg-q3-juV">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ndv-TY-gGa">
+                                <rect key="frame" x="0.0" y="525" width="600" height="75"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="k0Y-eb-swD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="15"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="aP2-7X-2ZC" kind="show" id="QYs-kf-qNU"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5p4-rd-z8M">
+                                <rect key="frame" x="75" y="75" width="450" height="450"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="5p4-rd-z8M" secondAttribute="height" multiplier="1:1" id="pln-aV-hD2"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Attach a selfie." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sc4-pw-7bl">
+                                <rect key="frame" x="180" y="42" width="240.5" height="25"/>
+                                <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="25"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="5p4-rd-z8M" firstAttribute="top" secondItem="sc4-pw-7bl" secondAttribute="bottom" constant="8" id="1PI-vk-4eC"/>
+                            <constraint firstItem="Ng6-zj-1rp" firstAttribute="top" secondItem="Ndv-TY-gGa" secondAttribute="bottom" id="5A6-4g-sar"/>
+                            <constraint firstAttribute="centerY" secondItem="5p4-rd-z8M" secondAttribute="centerY" id="AAp-d4-uxJ"/>
+                            <constraint firstItem="5p4-rd-z8M" firstAttribute="leading" secondItem="FZg-q3-juV" secondAttribute="leading" constant="75" id="Mmq-Ub-qfe"/>
+                            <constraint firstAttribute="trailing" secondItem="5p4-rd-z8M" secondAttribute="trailing" constant="75" id="gGH-pZ-nL9"/>
+                            <constraint firstItem="Ndv-TY-gGa" firstAttribute="leading" secondItem="FZg-q3-juV" secondAttribute="leading" id="iZD-fo-HfR"/>
+                            <constraint firstAttribute="trailing" secondItem="Ndv-TY-gGa" secondAttribute="trailing" id="wia-cY-3Ix"/>
+                            <constraint firstAttribute="centerX" secondItem="sc4-pw-7bl" secondAttribute="centerX" id="xZr-Og-FDv"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Join Game" id="l6X-89-FwZ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="r5o-AD-JHA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2656" y="-863"/>
+        </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="QYs-kf-qNU"/>
+    </inferredMetricsTieBreakers>
 </document>
