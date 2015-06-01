@@ -17,6 +17,7 @@
 @property (nonatomic) PFFile* alivePhoto;
 @property (nonatomic) PFFile* deadPhoto;
 @property (nonatomic) BOOL dead;
+@property (nonatomic) BOOL host;
 
 + (NSString *) parseClassName;
 - (void) setupWithGame: (Game*) game;

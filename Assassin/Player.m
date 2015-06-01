@@ -18,6 +18,7 @@
 @dynamic deadPhoto;
 @dynamic dead;
 @dynamic alivePhoto;
+@dynamic host;
 
 + (void)load {
     [self registerSubclass];
