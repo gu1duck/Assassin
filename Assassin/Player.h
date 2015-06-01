@@ -19,5 +19,6 @@
 @property (nonatomic) BOOL dead;
 
 + (NSString *) parseClassName;
+- (void) setupWithGame: (Game*) game;
 
 @end
