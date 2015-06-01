@@ -29,6 +29,7 @@
 		3FADB4381B1C1EF4008195E5 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FADB4341B1C1EF4008195E5 /* TestViewController.m */; };
 		3FADB4391B1C1EF4008195E5 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FADB4351B1C1EF4008195E5 /* Game.m */; };
 		3FADB43A1B1C1EF4008195E5 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FADB4371B1C1EF4008195E5 /* Player.m */; };
+		3FF0D5831B1D01F900E92D9E /* StartScreenVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF0D5821B1D01F900E92D9E /* StartScreenVIewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,8 @@
 		3FADB4351B1C1EF4008195E5 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
 		3FADB4361B1C1EF4008195E5 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		3FADB4371B1C1EF4008195E5 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
+		3FF0D5811B1D01F900E92D9E /* StartScreenVIewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartScreenVIewController.h; sourceTree = "<group>"; };
+		3FF0D5821B1D01F900E92D9E /* StartScreenVIewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartScreenVIewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +136,8 @@
 				3FADB3F61B1C1CF9008195E5 /* AppDelegate.h */,
 				3FADB3F71B1C1CF9008195E5 /* AppDelegate.m */,
 				3FADB3FC1B1C1CF9008195E5 /* Main.storyboard */,
+				3FF0D5811B1D01F900E92D9E /* StartScreenVIewController.h */,
+				3FF0D5821B1D01F900E92D9E /* StartScreenVIewController.m */,
 				3FADB3FF1B1C1CF9008195E5 /* Images.xcassets */,
 				3FADB4011B1C1CF9008195E5 /* LaunchScreen.xib */,
 				3FADB3F21B1C1CF9008195E5 /* Supporting Files */,
@@ -300,6 +305,7 @@
 				3FADB4391B1C1EF4008195E5 /* Game.m in Sources */,
 				3FADB3F81B1C1CF9008195E5 /* AppDelegate.m in Sources */,
 				3FADB4381B1C1EF4008195E5 /* TestViewController.m in Sources */,
+				3FF0D5831B1D01F900E92D9E /* StartScreenVIewController.m in Sources */,
 				3FADB43A1B1C1EF4008195E5 /* Player.m in Sources */,
 				3FADB3F51B1C1CF9008195E5 /* main.m in Sources */,
 			);
