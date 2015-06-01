@@ -10,8 +10,9 @@
 
 @interface Game : PFObject <PFSubclassing>
 
-@property (nonatomic) PFRelation *players;
-
+@property (nonatomic) PFRelation* players;
+@property (nonatomic) BOOL joinable;
+@property (nonatomic) NSString* joinPIN;
 
 + (NSString *) parseClassName;
 
