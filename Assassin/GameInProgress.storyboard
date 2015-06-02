@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="CNc-4O-ihR">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="CNc-4O-ihR">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Fw2-rV-fWz">
                                     <size key="itemSize" width="50" height="50"/>
@@ -41,6 +41,12 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="CNc-4O-ihR" firstAttribute="leading" secondItem="h7F-Qa-jlb" secondAttribute="leading" id="5BE-gz-Ncm"/>
+                            <constraint firstItem="CNc-4O-ihR" firstAttribute="top" secondItem="h7F-Qa-jlb" secondAttribute="top" id="Zuc-Ea-oR4"/>
+                            <constraint firstAttribute="trailing" secondItem="CNc-4O-ihR" secondAttribute="trailing" id="skw-nu-A61"/>
+                            <constraint firstAttribute="bottom" secondItem="CNc-4O-ihR" secondAttribute="bottom" id="wHQ-5d-GbB"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Game in Progress" id="r7P-oe-ugx"/>
                 </viewController>
@@ -170,7 +176,6 @@
         <!--Tab Bar Controller-->
         <scene sceneID="Gjd-cg-XBw">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kn5-fB-Fd0" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="GnP-6w-VOZ" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -184,6 +189,7 @@
                         <segue destination="aig-t9-KDn" kind="relationship" relationship="viewControllers" id="GeW-RH-CaW"/>
                     </connections>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kn5-fB-Fd0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-365" y="1066"/>
         </scene>
