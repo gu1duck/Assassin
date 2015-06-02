@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GamestateViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface GamestateViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSMutableArray *playersInGame;

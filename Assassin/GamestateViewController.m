@@ -64,29 +64,47 @@
     [super viewWillDisappear:animated];
 }
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    CGSize size = CGSizeMake(self.view.frame.size.width/2, self.view.frame.size.width/2);
+    return size;
+}
 
+-(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
+    return 0;
+}
+
+-(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
+    return 0;
+}
 
 #pragma mark - CollectionView
 
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 1;
+}
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.playersInGame.count;
+    return 8;
+    //return self.playersInGame.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
      PlayerCollectionViewCell *cell =[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     
-    Player *aPlayer = [self.playersInGame objectAtIndex:indexPath.row];
+    cell.playerImageView.image = [UIImage imageNamed:@"Jer"];
+    cell.playerNameLabel.text = @"Jeremy";
     
-    cell.playerNameLabel.text = aPlayer.name;
-    
-    if (aPlayer.deadPhoto) {
-        cell.playerImageView.image = [aPlayer downloadDeadPhoto];
-    }
-    else
-    {
-        cell.playerImageView.image = [aPlayer downloadAlivePhoto];
-    }
+//    Player *aPlayer = [self.playersInGame objectAtIndex:indexPath.row];
+//    
+//    cell.playerNameLabel.text = aPlayer.name;
+//    
+//    if (aPlayer.deadPhoto) {
+//        cell.playerImageView.image = [aPlayer downloadDeadPhoto];
+//    }
+//    else
+//    {
+//        cell.playerImageView.image = [aPlayer downloadAlivePhoto];
+//    }
     return cell;
 }
 

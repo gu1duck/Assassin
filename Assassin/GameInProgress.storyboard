@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E26a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="GnP-6w-VOZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="GnP-6w-VOZ">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -118,8 +118,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Jer" translatesAutoresizingMaskIntoConstraints="NO" id="NRs-ly-p2j">
-                                <rect key="frame" x="75" y="94" width="450" height="331"/>
+                                <rect key="frame" x="75" y="31" width="450" height="450"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" secondItem="NRs-ly-p2j" secondAttribute="height" multiplier="1:1" id="xPz-eE-GAM"/>
                                     <constraint firstAttribute="width" secondItem="NRs-ly-p2j" secondAttribute="height" multiplier="1:1" id="xsu-4D-Ozb"/>
                                 </constraints>
                                 <variation key="default">
@@ -129,7 +130,7 @@
                                 </variation>
                             </imageView>
                             <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zJP-JO-34t">
-                                <rect key="frame" x="247" y="441" width="106" height="75"/>
+                                <rect key="frame" x="247" y="489" width="106" height="75"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="106" id="3I0-uo-bTS"/>
@@ -158,9 +159,10 @@
                             <constraint firstItem="1YA-kT-F1p" firstAttribute="top" secondItem="zJP-JO-34t" secondAttribute="bottom" constant="35" id="Q2E-bA-VUx"/>
                             <constraint firstAttribute="centerX" secondItem="zJP-JO-34t" secondAttribute="centerX" constant="1" id="QhS-iZ-Cai"/>
                             <constraint firstAttribute="trailing" secondItem="NRs-ly-p2j" secondAttribute="trailing" constant="75" id="THN-51-vnh"/>
-                            <constraint firstItem="zJP-JO-34t" firstAttribute="top" secondItem="NRs-ly-p2j" secondAttribute="bottom" constant="16" id="Xod-OF-Naw"/>
+                            <constraint firstItem="zJP-JO-34t" firstAttribute="top" secondItem="NRs-ly-p2j" secondAttribute="bottom" constant="8" id="Xod-OF-Naw"/>
                             <constraint firstItem="1YA-kT-F1p" firstAttribute="top" secondItem="zJP-JO-34t" secondAttribute="bottom" constant="35" id="Z6P-KE-g8L"/>
                             <constraint firstItem="NRs-ly-p2j" firstAttribute="leading" secondItem="Whw-Er-7mf" secondAttribute="leading" constant="75" id="fOV-7i-5gj"/>
+                            <constraint firstItem="NRs-ly-p2j" firstAttribute="centerY" secondItem="Whw-Er-7mf" secondAttribute="centerY" constant="-44" id="hqJ-Mi-Um8"/>
                             <constraint firstItem="NRs-ly-p2j" firstAttribute="top" secondItem="kYb-T4-v0x" secondAttribute="bottom" constant="30" id="n0e-Fh-ona"/>
                             <constraint firstAttribute="centerY" secondItem="NRs-ly-p2j" secondAttribute="centerY" id="oxc-yc-Uh6"/>
                             <constraint firstAttribute="centerX" secondItem="zJP-JO-34t" secondAttribute="centerX" id="xEl-J0-gph"/>
@@ -168,11 +170,13 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="MHT-Xz-Knk"/>
+                                <exclude reference="n0e-Fh-ona"/>
                                 <exclude reference="oxc-yc-Uh6"/>
                                 <exclude reference="GS1-b5-MVD"/>
                                 <exclude reference="QhS-iZ-Cai"/>
                                 <exclude reference="7yc-5L-Max"/>
                                 <exclude reference="Q2E-bA-VUx"/>
+                                <exclude reference="Z6P-KE-g8L"/>
                             </mask>
                         </variation>
                     </view>
