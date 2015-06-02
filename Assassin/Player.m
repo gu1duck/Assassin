@@ -33,6 +33,8 @@
     [game.players addObject:self];
     self.user = [PFUser currentUser];
     self.dead = NO;
+    [self saveInBackground];
+    [game saveInBackground];
 }
 
 - (UIImage*) downloadAlivePhoto{

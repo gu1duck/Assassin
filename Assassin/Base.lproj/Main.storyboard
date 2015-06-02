@@ -159,7 +159,7 @@
         <!--New Game-->
         <scene sceneID="5qp-jH-IjC">
             <objects>
-                <viewController id="Gs5-lZ-Mmf" sceneMemberID="viewController">
+                <viewController id="Gs5-lZ-Mmf" customClass="NewGameViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="d9X-s5-hCH"/>
                         <viewControllerLayoutGuide type="bottom" id="Tqo-7Q-zDW"/>
@@ -180,7 +180,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="aP2-7X-2ZC" kind="show" id="FAC-Su-Qfm"/>
+                                    <segue destination="aP2-7X-2ZC" kind="show" identifier="newGameToHopper" id="FAC-Su-Qfm"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7uv-em-N3u">
@@ -196,6 +196,16 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IIi-OJ-wCM">
+                                <rect key="frame" x="75" y="75" width="450" height="450"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="imagePickerButton:" destination="Gs5-lZ-Mmf" eventType="touchUpInside" id="dEQ-ho-G0t"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -203,13 +213,21 @@
                             <constraint firstItem="PG0-lL-qKg" firstAttribute="leading" secondItem="jeo-hQ-mXn" secondAttribute="leading" id="BhV-4u-QS3"/>
                             <constraint firstItem="7uv-em-N3u" firstAttribute="leading" secondItem="jeo-hQ-mXn" secondAttribute="leading" constant="75" id="YUU-Gu-RpW"/>
                             <constraint firstItem="Tqo-7Q-zDW" firstAttribute="top" secondItem="PG0-lL-qKg" secondAttribute="bottom" id="cAG-UP-WBh"/>
+                            <constraint firstItem="IIi-OJ-wCM" firstAttribute="top" secondItem="7uv-em-N3u" secondAttribute="top" id="gil-6M-6k5"/>
+                            <constraint firstItem="IIi-OJ-wCM" firstAttribute="leading" secondItem="7uv-em-N3u" secondAttribute="leading" id="hQ4-VP-4w9"/>
+                            <constraint firstItem="IIi-OJ-wCM" firstAttribute="bottom" secondItem="7uv-em-N3u" secondAttribute="bottom" id="kx1-T1-zjB"/>
                             <constraint firstAttribute="centerX" secondItem="y7a-6j-8I8" secondAttribute="centerX" id="li5-sh-IHg"/>
                             <constraint firstAttribute="trailing" secondItem="7uv-em-N3u" secondAttribute="trailing" constant="75" id="myD-fB-WTh"/>
                             <constraint firstAttribute="centerY" secondItem="7uv-em-N3u" secondAttribute="centerY" id="s0o-Ct-sCz"/>
                             <constraint firstItem="7uv-em-N3u" firstAttribute="top" secondItem="y7a-6j-8I8" secondAttribute="bottom" constant="8" id="vaO-4b-oh6"/>
+                            <constraint firstItem="IIi-OJ-wCM" firstAttribute="trailing" secondItem="7uv-em-N3u" secondAttribute="trailing" id="yYn-6L-J8u"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="New Game" id="Lr7-er-i1p"/>
+                    <connections>
+                        <outlet property="doneButton" destination="PG0-lL-qKg" id="ZyN-xO-DDI"/>
+                        <outlet property="photoImageView" destination="7uv-em-N3u" id="d7J-sp-3IA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pNt-vZ-fGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -218,7 +236,7 @@
         <!--Waiting for Players-->
         <scene sceneID="cHS-0u-xVR">
             <objects>
-                <viewController id="aP2-7X-2ZC" sceneMemberID="viewController">
+                <viewController id="aP2-7X-2ZC" customClass="HopperViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0pv-rl-57L"/>
                         <viewControllerLayoutGuide type="bottom" id="kgq-ax-YE4"/>
@@ -390,6 +408,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="QYs-kf-qNU"/>
+        <segue reference="FAC-Su-Qfm"/>
     </inferredMetricsTieBreakers>
 </document>
