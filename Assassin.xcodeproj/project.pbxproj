@@ -14,6 +14,7 @@
 		3F05328B1B1D2C07008210D8 /* UserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F05328A1B1D2C07008210D8 /* UserTableViewController.m */; };
 		3F92F0331B1D660B005CD2F2 /* NewGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F0321B1D660B005CD2F2 /* NewGameViewController.m */; };
 		3F92F0361B1D7774005CD2F2 /* HopperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F0351B1D7774005CD2F2 /* HopperViewController.m */; };
+		3F9AA2411B1E3DA3009F792E /* JoinGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F9AA2401B1E3DA3009F792E /* JoinGameViewController.m */; };
 		3FADB3F51B1C1CF9008195E5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FADB3F41B1C1CF9008195E5 /* main.m */; };
 		3FADB3F81B1C1CF9008195E5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FADB3F71B1C1CF9008195E5 /* AppDelegate.m */; };
 		3FADB3FE1B1C1CF9008195E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FADB3FC1B1C1CF9008195E5 /* Main.storyboard */; };
@@ -63,6 +64,8 @@
 		3F92F0321B1D660B005CD2F2 /* NewGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewGameViewController.m; sourceTree = "<group>"; };
 		3F92F0341B1D7774005CD2F2 /* HopperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HopperViewController.h; sourceTree = "<group>"; };
 		3F92F0351B1D7774005CD2F2 /* HopperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HopperViewController.m; sourceTree = "<group>"; };
+		3F9AA23F1B1E3DA3009F792E /* JoinGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinGameViewController.h; sourceTree = "<group>"; };
+		3F9AA2401B1E3DA3009F792E /* JoinGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinGameViewController.m; sourceTree = "<group>"; };
 		3FADB3EF1B1C1CF9008195E5 /* Assassin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Assassin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FADB3F31B1C1CF9008195E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3FADB3F41B1C1CF9008195E5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -141,6 +144,8 @@
 				3FF0D5821B1D01F900E92D9E /* StartScreenVIewController.m */,
 				3F92F0311B1D660B005CD2F2 /* NewGameViewController.h */,
 				3F92F0321B1D660B005CD2F2 /* NewGameViewController.m */,
+				3F9AA23F1B1E3DA3009F792E /* JoinGameViewController.h */,
+				3F9AA2401B1E3DA3009F792E /* JoinGameViewController.m */,
 				3F92F0341B1D7774005CD2F2 /* HopperViewController.h */,
 				3F92F0351B1D7774005CD2F2 /* HopperViewController.m */,
 			);
@@ -353,6 +358,7 @@
 				3F05328B1B1D2C07008210D8 /* UserTableViewController.m in Sources */,
 				3F92F0331B1D660B005CD2F2 /* NewGameViewController.m in Sources */,
 				3F0532821B1D2A33008210D8 /* GamestateViewController.m in Sources */,
+				3F9AA2411B1E3DA3009F792E /* JoinGameViewController.m in Sources */,
 				3FADB3F51B1C1CF9008195E5 /* main.m in Sources */,
 				3F92F0361B1D7774005CD2F2 /* HopperViewController.m in Sources */,
 				3F0532851B1D2B1D008210D8 /* TargetViewController.m in Sources */,

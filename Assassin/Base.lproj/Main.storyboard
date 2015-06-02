@@ -90,7 +90,7 @@
         <!--Join Game-->
         <scene sceneID="Iml-x5-Tue">
             <objects>
-                <viewController id="F2d-5c-UIx" sceneMemberID="viewController">
+                <viewController id="F2d-5c-UIx" customClass="JoinGameViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sSK-gO-rZF"/>
                         <viewControllerLayoutGuide type="bottom" id="waX-qx-Bjt"/>
@@ -151,6 +151,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Join Game" id="n7k-Pb-5Qm"/>
+                    <connections>
+                        <outlet property="joinGameButton" destination="qAw-hR-xPe" id="RNj-Tc-PKZ"/>
+                        <outlet property="joinGameTextField" destination="auY-uQ-5aY" id="fg0-1s-WP0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rxM-FJ-IIv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -206,15 +210,15 @@
                                     <action selector="imagePickerButton:" destination="Gs5-lZ-Mmf" eventType="touchUpInside" id="dEQ-ho-G0t"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8fQ-av-Kr7">
-                                <rect key="frame" x="200" y="573" width="200" height="1"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8fQ-av-Kr7">
+                                <rect key="frame" x="200" y="553" width="200" height="1"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="Jmj-AM-Qkk"/>
                                 </constraints>
                             </view>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Your name." textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EcW-TS-8jh">
-                                <rect key="frame" x="200" y="533" width="200" height="40"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Your name." textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EcW-TS-8jh">
+                                <rect key="frame" x="200" y="533" width="200" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="4vL-2D-jLK"/>
                                 </constraints>

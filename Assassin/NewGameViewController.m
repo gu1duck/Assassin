@@ -89,7 +89,8 @@
 -(void) viewWillDisappear:(BOOL)animated {
     if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
         [self.game deleteInBackground];
-        [self.player deleteInBackground];    }
+        [self.player deleteInBackground];
+    }
     [super viewWillDisappear:animated];
 }
 
