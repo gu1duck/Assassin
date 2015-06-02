@@ -7,6 +7,9 @@
 //
 
 #import "GamestateViewController.h"
+#import "Player.h"
+#import "Game.h"
+#import "PlayerCollectionViewCell.h"
 
 @interface GamestateViewController ()
 
@@ -16,7 +19,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    Game *game1 = [Game object];
+    [game1 save];
+    
+    Player *player1 = [Player object];
+    player1.name = @"Player1";
+    player1.user = [PFUser currentUser];
+    [player1 uploadAlivePhoto:[UIImage imageNamed:@"jer"]];
+    [player1 save];
+    
+    [game1.players addObject:player1];
+    [game1 save];
+    
+    PFQuery *query1 =[PFQuery queryWithClassName:[Player parseClassName]];
+    [query1 whereKey:@"game" equalTo:game1];
+    [query1 findObjectsInBackgroundWithBlock:^(NSArray *players, NSError *error){
+        NSLog(@"players in game");
+        for (Player *player in players) {
+            NSLog(@"%@", player.name);
+        }
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,6 +58,30 @@
     [super viewWillDisappear:animated];
 }
 
+
+
+#pragma mark - CollectionView
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return  1;
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+     PlayerCollectionViewCell *cell =[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    
+    Player *aPlayer = [self.playersInGame objectAtIndex:indexPath.row];
+    
+    cell.playerNameLabel.text = aPlayer.name;
+    
+    if (aPlayer.deadPhoto) {
+        cell.playerImageView.image = [aPlayer downloadDeadPhoto];
+    }
+    else
+    {
+        cell.playerImageView.image = [aPlayer downloadAlivePhoto];
+    }
+    return cell;
+}
 
 /*
 #pragma mark - Navigation
