@@ -10,7 +10,7 @@
 #import "Player.h"
 #import "HopperViewController.h"
 
-@interface NewGameViewController () <UITextFieldDelegate>
+@interface NewGameViewController () <UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIActionSheetDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
@@ -75,16 +75,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)imagePickerButton:(id)sender {
-    //photo code goes here
-    self.image = [UIImage imageNamed:@"Jer"];
-    self.photoImageView.image = self.image;
-    //
-    if (self.photoImageView.image && ![self.nameTextField.text isEqualToString:@""]){
-        self.doneButton.enabled = YES;
-        self.doneButton.alpha = 1;
-    }
-}
+
 
 -(void) viewWillDisappear:(BOOL)animated {
     if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
@@ -109,7 +100,71 @@
     }
 }
 
+#pragma mark - ImagePicker & Filter
 
+- (IBAction)imagePickerButton:(id)sender {
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Choose Source" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera",@"Photo Library", nil];
+    [actionSheet showInView:self.view];
+    
+    
+    if (self.photoImageView.image && ![self.nameTextField.text isEqualToString:@""]){
+        self.doneButton.enabled = YES;
+        self.doneButton.alpha = 1;
+    }
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    switch (buttonIndex) {
+        case 0:{
+            UIImagePickerController *imagePicker = [[UIImagePickerController alloc]init];
+            imagePicker.delegate = self;
+            imagePicker.allowsEditing = true;
+            [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
+            imagePicker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
+            [self presentViewController:imagePicker animated:YES completion:nil];
+        }
+            break;
+            
+        case 1:{
+            UIImagePickerController *imagePicker = [[UIImagePickerController alloc]init];
+            imagePicker.delegate = self;
+            imagePicker.allowsEditing = true;
+            [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+            [self presentViewController:imagePicker animated:YES completion:nil];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    self.image = [self desaturateImage:info [UIImagePickerControllerEditedImage]];
+    self.photoImageView.image = self.image;
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+-(UIImage *)desaturateImage:(UIImage *)originalImage {
+    
+    
+    CIContext *context = [CIContext contextWithOptions:nil];
+    
+    CIImage *image = [[CIImage alloc]initWithImage:originalImage];
+    
+    CIFilter *desaturateFilter =[CIFilter filterWithName:@"CIPhotoEffectNoir"];
+    [desaturateFilter setValue:image forKey:kCIInputImageKey];
+    
+    CIImage *result = [desaturateFilter valueForKey:kCIOutputImageKey];
+    
+    CGRect extent = [result extent];
+    CGImageRef cgimage = [context createCGImage:result fromRect:extent];
+    
+    UIImageOrientation originalOrientation = originalImage.imageOrientation;
+    return [UIImage imageWithCGImage:cgimage scale:1 orientation:originalOrientation];
+}
 
 /*
 #pragma mark - Navigation
