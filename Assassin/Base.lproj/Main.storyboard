@@ -206,19 +206,39 @@
                                     <action selector="imagePickerButton:" destination="Gs5-lZ-Mmf" eventType="touchUpInside" id="dEQ-ho-G0t"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8fQ-av-Kr7">
+                                <rect key="frame" x="200" y="573" width="200" height="1"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Jmj-AM-Qkk"/>
+                                </constraints>
+                            </view>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Your name." textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EcW-TS-8jh">
+                                <rect key="frame" x="200" y="533" width="200" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="4vL-2D-jLK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="20"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="PG0-lL-qKg" secondAttribute="trailing" id="1hC-8B-Ohl"/>
+                            <constraint firstItem="8fQ-av-Kr7" firstAttribute="top" secondItem="EcW-TS-8jh" secondAttribute="bottom" id="AAi-Dl-wo5"/>
                             <constraint firstItem="PG0-lL-qKg" firstAttribute="leading" secondItem="jeo-hQ-mXn" secondAttribute="leading" id="BhV-4u-QS3"/>
+                            <constraint firstItem="EcW-TS-8jh" firstAttribute="top" secondItem="IIi-OJ-wCM" secondAttribute="bottom" constant="8" id="GGy-zP-vp3"/>
+                            <constraint firstItem="EcW-TS-8jh" firstAttribute="leading" secondItem="8fQ-av-Kr7" secondAttribute="leading" id="VcR-kT-YiZ"/>
                             <constraint firstItem="7uv-em-N3u" firstAttribute="leading" secondItem="jeo-hQ-mXn" secondAttribute="leading" constant="75" id="YUU-Gu-RpW"/>
                             <constraint firstItem="Tqo-7Q-zDW" firstAttribute="top" secondItem="PG0-lL-qKg" secondAttribute="bottom" id="cAG-UP-WBh"/>
+                            <constraint firstItem="EcW-TS-8jh" firstAttribute="trailing" secondItem="8fQ-av-Kr7" secondAttribute="trailing" id="fPm-co-Dae"/>
                             <constraint firstItem="IIi-OJ-wCM" firstAttribute="top" secondItem="7uv-em-N3u" secondAttribute="top" id="gil-6M-6k5"/>
                             <constraint firstItem="IIi-OJ-wCM" firstAttribute="leading" secondItem="7uv-em-N3u" secondAttribute="leading" id="hQ4-VP-4w9"/>
                             <constraint firstItem="IIi-OJ-wCM" firstAttribute="bottom" secondItem="7uv-em-N3u" secondAttribute="bottom" id="kx1-T1-zjB"/>
                             <constraint firstAttribute="centerX" secondItem="y7a-6j-8I8" secondAttribute="centerX" id="li5-sh-IHg"/>
                             <constraint firstAttribute="trailing" secondItem="7uv-em-N3u" secondAttribute="trailing" constant="75" id="myD-fB-WTh"/>
                             <constraint firstAttribute="centerY" secondItem="7uv-em-N3u" secondAttribute="centerY" id="s0o-Ct-sCz"/>
+                            <constraint firstAttribute="centerX" secondItem="EcW-TS-8jh" secondAttribute="centerX" id="tck-oZ-jTU"/>
                             <constraint firstItem="7uv-em-N3u" firstAttribute="top" secondItem="y7a-6j-8I8" secondAttribute="bottom" constant="8" id="vaO-4b-oh6"/>
                             <constraint firstItem="IIi-OJ-wCM" firstAttribute="trailing" secondItem="7uv-em-N3u" secondAttribute="trailing" id="yYn-6L-J8u"/>
                         </constraints>
@@ -226,6 +246,7 @@
                     <navigationItem key="navigationItem" title="New Game" id="Lr7-er-i1p"/>
                     <connections>
                         <outlet property="doneButton" destination="PG0-lL-qKg" id="ZyN-xO-DDI"/>
+                        <outlet property="nameTextField" destination="EcW-TS-8jh" id="MUQ-3p-elu"/>
                         <outlet property="photoImageView" destination="7uv-em-N3u" id="d7J-sp-3IA"/>
                     </connections>
                 </viewController>
