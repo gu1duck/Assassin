@@ -12,6 +12,8 @@
 		3F0532821B1D2A33008210D8 /* GamestateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F0532811B1D2A33008210D8 /* GamestateViewController.m */; };
 		3F0532851B1D2B1D008210D8 /* TargetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F0532841B1D2B1D008210D8 /* TargetViewController.m */; };
 		3F05328B1B1D2C07008210D8 /* UserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F05328A1B1D2C07008210D8 /* UserTableViewController.m */; };
+		3F92F0331B1D660B005CD2F2 /* NewGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F0321B1D660B005CD2F2 /* NewGameViewController.m */; };
+		3F92F0361B1D7774005CD2F2 /* HopperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F0351B1D7774005CD2F2 /* HopperViewController.m */; };
 		3FADB3F51B1C1CF9008195E5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FADB3F41B1C1CF9008195E5 /* main.m */; };
 		3FADB3F81B1C1CF9008195E5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FADB3F71B1C1CF9008195E5 /* AppDelegate.m */; };
 		3FADB3FE1B1C1CF9008195E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FADB3FC1B1C1CF9008195E5 /* Main.storyboard */; };
@@ -57,6 +59,10 @@
 		3F0532841B1D2B1D008210D8 /* TargetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TargetViewController.m; sourceTree = "<group>"; };
 		3F0532891B1D2C07008210D8 /* UserTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserTableViewController.h; path = ../UserTableViewController.h; sourceTree = "<group>"; };
 		3F05328A1B1D2C07008210D8 /* UserTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserTableViewController.m; path = ../UserTableViewController.m; sourceTree = "<group>"; };
+		3F92F0311B1D660B005CD2F2 /* NewGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewGameViewController.h; sourceTree = "<group>"; };
+		3F92F0321B1D660B005CD2F2 /* NewGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewGameViewController.m; sourceTree = "<group>"; };
+		3F92F0341B1D7774005CD2F2 /* HopperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HopperViewController.h; sourceTree = "<group>"; };
+		3F92F0351B1D7774005CD2F2 /* HopperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HopperViewController.m; sourceTree = "<group>"; };
 		3FADB3EF1B1C1CF9008195E5 /* Assassin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Assassin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FADB3F31B1C1CF9008195E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3FADB3F41B1C1CF9008195E5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -122,6 +128,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3F92F0301B1D6263005CD2F2 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3F0532831B1D2B1D008210D8 /* TargetViewController.h */,
+				3F0532841B1D2B1D008210D8 /* TargetViewController.m */,
+				3F0532891B1D2C07008210D8 /* UserTableViewController.h */,
+				3F05328A1B1D2C07008210D8 /* UserTableViewController.m */,
+				3F0532801B1D2A33008210D8 /* GamestateViewController.h */,
+				3F0532811B1D2A33008210D8 /* GamestateViewController.m */,
+				3FF0D5811B1D01F900E92D9E /* StartScreenVIewController.h */,
+				3FF0D5821B1D01F900E92D9E /* StartScreenVIewController.m */,
+				3F92F0311B1D660B005CD2F2 /* NewGameViewController.h */,
+				3F92F0321B1D660B005CD2F2 /* NewGameViewController.m */,
+				3F92F0341B1D7774005CD2F2 /* HopperViewController.h */,
+				3F92F0351B1D7774005CD2F2 /* HopperViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
 		3FADB3E61B1C1CF9008195E5 = {
 			isa = PBXGroup;
 			children = (
@@ -149,19 +174,12 @@
 				3FADB4341B1C1EF4008195E5 /* TestViewController.m */,
 				3FADB3F61B1C1CF9008195E5 /* AppDelegate.h */,
 				3FADB3F71B1C1CF9008195E5 /* AppDelegate.m */,
-				3FADB3FC1B1C1CF9008195E5 /* Main.storyboard */,
-				3F0532831B1D2B1D008210D8 /* TargetViewController.h */,
-				3F0532841B1D2B1D008210D8 /* TargetViewController.m */,
-				3F0532891B1D2C07008210D8 /* UserTableViewController.h */,
-				3F05328A1B1D2C07008210D8 /* UserTableViewController.m */,
+				3F92F0301B1D6263005CD2F2 /* View Controllers */,
 				3F05327D1B1D2571008210D8 /* StoryboardSegue.h */,
 				3F05327E1B1D2571008210D8 /* StoryboardSegue.m */,
-				3F05327B1B1D2299008210D8 /* GameInProgress.storyboard */,
-				3F0532801B1D2A33008210D8 /* GamestateViewController.h */,
-				3F0532811B1D2A33008210D8 /* GamestateViewController.m */,
-				3FF0D5811B1D01F900E92D9E /* StartScreenVIewController.h */,
-				3FF0D5821B1D01F900E92D9E /* StartScreenVIewController.m */,
 				3FADB3FF1B1C1CF9008195E5 /* Images.xcassets */,
+				3FADB3FC1B1C1CF9008195E5 /* Main.storyboard */,
+				3F05327B1B1D2299008210D8 /* GameInProgress.storyboard */,
 				3FADB4011B1C1CF9008195E5 /* LaunchScreen.xib */,
 				3FADB3F21B1C1CF9008195E5 /* Supporting Files */,
 			);
@@ -333,8 +351,10 @@
 				3FF0D5831B1D01F900E92D9E /* StartScreenVIewController.m in Sources */,
 				3FADB43A1B1C1EF4008195E5 /* Player.m in Sources */,
 				3F05328B1B1D2C07008210D8 /* UserTableViewController.m in Sources */,
+				3F92F0331B1D660B005CD2F2 /* NewGameViewController.m in Sources */,
 				3F0532821B1D2A33008210D8 /* GamestateViewController.m in Sources */,
 				3FADB3F51B1C1CF9008195E5 /* main.m in Sources */,
+				3F92F0361B1D7774005CD2F2 /* HopperViewController.m in Sources */,
 				3F0532851B1D2B1D008210D8 /* TargetViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

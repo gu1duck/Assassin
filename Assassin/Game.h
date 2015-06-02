@@ -15,5 +15,6 @@
 @property (nonatomic) NSString* joinPIN;
 
 + (NSString *) parseClassName;
+- (void) setup;
 
 @end
