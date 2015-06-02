@@ -14,8 +14,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (nonatomic) UIImage* image;
-@property (nonatomic) Player* player;
-@property (nonatomic) Game* game;
+@property Player* player;
+@property Game* game;
 
 @end
 
@@ -29,16 +29,20 @@
     //Create Player and Game, saving them in the background. Note that this could
     //cause a crash if the user is somehow able to upload an image before this sequence
     //finishes.
-    self.player = [Player object];
-    self.player.host = YES;
-    [self.player save];
-    self.game = [Game object];
-    [self.game setup];
-    [self.player saveInBackgroundWithBlock:^(BOOL success, NSError* error){
-        [self.game saveInBackgroundWithBlock:^(BOOL success, NSError* error){
-            [self.player setupWithGame:self.game];
+    
+    Player* player = [Player object];
+    Game* game = [Game object];
+    player.name = @"name";
+    player.host = YES;
+    [game setup];
+    [player saveInBackgroundWithBlock:^(BOOL success, NSError* error){
+        [game saveInBackgroundWithBlock:^(BOOL success, NSError* error){
+            [player setupWithGame:game];
+            self.player = player;
+            self.game = game;
         }];
     }];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,10 +59,11 @@
     self.doneButton.alpha = 1;
 }
 
-- (void)didMoveToParentViewController:(UIViewController *)parent
-{
-    [self.game deleteInBackground];
-    [self.player deleteInBackground];
+-(void) viewWillDisappear:(BOOL)animated {
+    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
+        [self.game deleteInBackground];
+        [self.player deleteInBackground];    }
+    [super viewWillDisappear:animated];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
