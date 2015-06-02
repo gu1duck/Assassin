@@ -11,5 +11,5 @@
 @interface GamestateViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (strong, nonatomic) NSArray *playersInGame;
+@property (strong, nonatomic) NSMutableArray *playersInGame;
 @end

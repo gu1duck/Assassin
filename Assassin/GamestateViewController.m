@@ -20,26 +20,32 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    Game *game1 = [Game object];
-    [game1 save];
+    self.playersInGame = [[NSMutableArray alloc]init];
     
-    Player *player1 = [Player object];
-    player1.name = @"Player1";
-    player1.user = [PFUser currentUser];
-    [player1 uploadAlivePhoto:[UIImage imageNamed:@"jer"]];
-    [player1 save];
-    
-    [game1.players addObject:player1];
-    [game1 save];
-    
-    PFQuery *query1 =[PFQuery queryWithClassName:[Player parseClassName]];
-    [query1 whereKey:@"game" equalTo:game1];
-    [query1 findObjectsInBackgroundWithBlock:^(NSArray *players, NSError *error){
-        NSLog(@"players in game");
-        for (Player *player in players) {
-            NSLog(@"%@", player.name);
-        }
-    }];
+//    Game *game1 = [Game object];
+//    [game1 save];
+//    
+//    Player *player1 = [Player object];
+//    player1.name = @"Player1";
+//    player1.user = [PFUser currentUser];
+//    [player1 uploadAlivePhoto:[UIImage imageNamed:@"Jer"]];
+//    [player1 save];
+//    
+//    [game1.players addObject:player1];
+//    [game1 save];
+//    
+//    
+//    
+//    PFQuery *query1 =[PFQuery queryWithClassName:[Player parseClassName]];
+//    [query1 whereKey:@"game" equalTo:game1];
+//    [query1 findObjectsInBackgroundWithBlock:^(NSArray *players, NSError *error){
+//        for (Player *player in players) {
+//            [self.playersInGame addObject:player];
+//        }
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.collectionView reloadData];
+//        });
+//    }];
     
 }
 
@@ -62,8 +68,9 @@
 
 #pragma mark - CollectionView
 
+
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return  1;
+    return self.playersInGame.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
