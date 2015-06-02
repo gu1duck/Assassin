@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GamestateViewController : UIViewController
+@interface GamestateViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) NSMutableArray *playersInGame;
 @end

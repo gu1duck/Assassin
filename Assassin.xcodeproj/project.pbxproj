@@ -37,6 +37,7 @@
 		3FADB4391B1C1EF4008195E5 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FADB4351B1C1EF4008195E5 /* Game.m */; };
 		3FADB43A1B1C1EF4008195E5 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FADB4371B1C1EF4008195E5 /* Player.m */; };
 		3FF0D5831B1D01F900E92D9E /* StartScreenVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF0D5821B1D01F900E92D9E /* StartScreenVIewController.m */; };
+		C86339D51B1E40CE00C5CB4C /* PlayerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C86339D41B1E40CE00C5CB4C /* PlayerCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,8 @@
 		3FADB4371B1C1EF4008195E5 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 		3FF0D5811B1D01F900E92D9E /* StartScreenVIewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartScreenVIewController.h; sourceTree = "<group>"; };
 		3FF0D5821B1D01F900E92D9E /* StartScreenVIewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartScreenVIewController.m; sourceTree = "<group>"; };
+		C86339D31B1E40CE00C5CB4C /* PlayerCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerCollectionViewCell.h; sourceTree = "<group>"; };
+		C86339D41B1E40CE00C5CB4C /* PlayerCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +185,8 @@
 				3F05327B1B1D2299008210D8 /* GameInProgress.storyboard */,
 				3FADB4011B1C1CF9008195E5 /* LaunchScreen.xib */,
 				3FADB3F21B1C1CF9008195E5 /* Supporting Files */,
+				C86339D31B1E40CE00C5CB4C /* PlayerCollectionViewCell.h */,
+				C86339D41B1E40CE00C5CB4C /* PlayerCollectionViewCell.m */,
 			);
 			path = Assassin;
 			sourceTree = "<group>";
@@ -348,6 +353,7 @@
 				3FADB4391B1C1EF4008195E5 /* Game.m in Sources */,
 				3FADB3F81B1C1CF9008195E5 /* AppDelegate.m in Sources */,
 				3FADB4381B1C1EF4008195E5 /* TestViewController.m in Sources */,
+				C86339D51B1E40CE00C5CB4C /* PlayerCollectionViewCell.m in Sources */,
 				3FF0D5831B1D01F900E92D9E /* StartScreenVIewController.m in Sources */,
 				3FADB43A1B1C1EF4008195E5 /* Player.m in Sources */,
 				3F05328B1B1D2C07008210D8 /* UserTableViewController.m in Sources */,

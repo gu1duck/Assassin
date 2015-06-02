@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TargetViewController : UIViewController
+@interface TargetViewController : UIViewController <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
+@property (weak, nonatomic) IBOutlet UIImageView *targetImageView;
 @end

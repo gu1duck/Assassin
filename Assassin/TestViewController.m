@@ -52,6 +52,9 @@
     [player3 save];
     [game2 save];
     
+    [player1 uploadAlivePhoto:[UIImage imageNamed:@"Jer"]];
+    
+    
     PFQuery *query1 = [PFQuery queryWithClassName:[Player parseClassName]];
     [query1 whereKey:@"game" equalTo:game1];
     [query1 findObjectsInBackgroundWithBlock:^(NSArray* players, NSError* error){
