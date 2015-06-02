@@ -1,26 +1,25 @@
 //
-//  NewGameViewController.m
+//  JoinGameInfoViewController.m
 //  Assassin
 //
-//  Created by Jeremy Petter on 2015-06-01.
+//  Created by Jeremy Petter on 2015-06-02.
 //  Copyright (c) 2015 Jeremy Petter. All rights reserved.
 //
 
-#import "NewGameViewController.h"
+#import "JoinGameInfoViewController.h"
 #import "Player.h"
 #import "HopperViewController.h"
 
-@interface NewGameViewController () <UITextFieldDelegate>
-@property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
+@interface JoinGameInfoViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
-@property (nonatomic) UIImage* image;
 @property Player* player;
-@property Game* game;
+@property (nonatomic) UIImage* image;
 
 @end
 
-@implementation NewGameViewController
+@implementation JoinGameInfoViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,26 +27,28 @@
     self.doneButton.alpha = 0.5;
     self.nameTextField.delegate = self;
     
-    //Create Player and Game, saving them in the background. Note that this could
-    //cause a crash if the user is somehow able to upload an image before this sequence
-    //finishes.
-    
     Player* player = [Player object];
-    Game* game = [Game object];
-    player.host = YES;
-    [game setup];
     [player saveInBackgroundWithBlock:^(BOOL success, NSError* error){
-        [game saveInBackgroundWithBlock:^(BOOL success, NSError* error){
-            [player setupWithGame:game];
+            [player setupWithGame:self.game];
             self.player = player;
-            self.game = game;
-        }];
     }];
-    
+
+}
+
+-(void) viewWillDisappear:(BOOL)animated {
+    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
+        [self.player deleteInBackground];
+    }
+    [super viewWillDisappear:animated];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
-
+    
     [UIView animateWithDuration:0.2 animations:^{
         CGRect frameUp = self.view.frame;
         frameUp.origin.y -=150;
@@ -59,7 +60,7 @@
     [UIView animateWithDuration:0.2 animations:^{
         self.view.frame = [[UIScreen mainScreen] bounds];
     }];
-    if (self.photoImageView.image && ![self.nameTextField.text isEqualToString:@""]){
+    if (self.imageView.image && ![self.nameTextField.text isEqualToString:@""]){
         self.doneButton.enabled = YES;
         self.doneButton.alpha = 1;
     }
@@ -70,32 +71,19 @@
     return false;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)imagePickerButton:(id)sender {
+- (IBAction)pickerButton:(id)sender {
     //photo code goes here
     self.image = [UIImage imageNamed:@"Jer"];
-    self.photoImageView.image = self.image;
+    self.imageView.image = self.image;
     //
-    if (self.photoImageView.image && ![self.nameTextField.text isEqualToString:@""]){
+    if (self.imageView.image && ![self.nameTextField.text isEqualToString:@""]){
         self.doneButton.enabled = YES;
         self.doneButton.alpha = 1;
     }
 }
 
--(void) viewWillDisappear:(BOOL)animated {
-    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
-        [self.game deleteInBackground];
-        [self.player deleteInBackground];
-    }
-    [super viewWillDisappear:animated];
-}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"newGameToHopper"]){
+    if ([segue.identifier isEqualToString:@"signupToHopper"]){
         HopperViewController* hopper = segue.destinationViewController;
         hopper.game = self.game;
         
@@ -108,7 +96,6 @@
         });
     }
 }
-
 
 
 /*

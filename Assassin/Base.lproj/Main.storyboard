@@ -90,7 +90,7 @@
         <!--Join Game-->
         <scene sceneID="Iml-x5-Tue">
             <objects>
-                <viewController id="F2d-5c-UIx" sceneMemberID="viewController">
+                <viewController id="F2d-5c-UIx" customClass="JoinGameViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sSK-gO-rZF"/>
                         <viewControllerLayoutGuide type="bottom" id="waX-qx-Bjt"/>
@@ -125,7 +125,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="uFC-ce-oOh" kind="show" id="ZJA-Xh-A61"/>
+                                    <segue destination="bNh-Kv-Tce" kind="show" identifier="JoinGameToInfo" id="Ppc-cf-qdC"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="be0-B1-0gO">
@@ -151,6 +151,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Join Game" id="n7k-Pb-5Qm"/>
+                    <connections>
+                        <outlet property="joinGameButton" destination="qAw-hR-xPe" id="RNj-Tc-PKZ"/>
+                        <outlet property="joinGameTextField" destination="auY-uQ-5aY" id="fg0-1s-WP0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rxM-FJ-IIv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -206,19 +210,39 @@
                                     <action selector="imagePickerButton:" destination="Gs5-lZ-Mmf" eventType="touchUpInside" id="dEQ-ho-G0t"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8fQ-av-Kr7">
+                                <rect key="frame" x="200" y="553" width="200" height="1"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Jmj-AM-Qkk"/>
+                                </constraints>
+                            </view>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Your name." textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EcW-TS-8jh">
+                                <rect key="frame" x="200" y="533" width="200" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="4vL-2D-jLK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="20"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="PG0-lL-qKg" secondAttribute="trailing" id="1hC-8B-Ohl"/>
+                            <constraint firstItem="8fQ-av-Kr7" firstAttribute="top" secondItem="EcW-TS-8jh" secondAttribute="bottom" id="AAi-Dl-wo5"/>
                             <constraint firstItem="PG0-lL-qKg" firstAttribute="leading" secondItem="jeo-hQ-mXn" secondAttribute="leading" id="BhV-4u-QS3"/>
+                            <constraint firstItem="EcW-TS-8jh" firstAttribute="top" secondItem="IIi-OJ-wCM" secondAttribute="bottom" constant="8" id="GGy-zP-vp3"/>
+                            <constraint firstItem="EcW-TS-8jh" firstAttribute="leading" secondItem="8fQ-av-Kr7" secondAttribute="leading" id="VcR-kT-YiZ"/>
                             <constraint firstItem="7uv-em-N3u" firstAttribute="leading" secondItem="jeo-hQ-mXn" secondAttribute="leading" constant="75" id="YUU-Gu-RpW"/>
                             <constraint firstItem="Tqo-7Q-zDW" firstAttribute="top" secondItem="PG0-lL-qKg" secondAttribute="bottom" id="cAG-UP-WBh"/>
+                            <constraint firstItem="EcW-TS-8jh" firstAttribute="trailing" secondItem="8fQ-av-Kr7" secondAttribute="trailing" id="fPm-co-Dae"/>
                             <constraint firstItem="IIi-OJ-wCM" firstAttribute="top" secondItem="7uv-em-N3u" secondAttribute="top" id="gil-6M-6k5"/>
                             <constraint firstItem="IIi-OJ-wCM" firstAttribute="leading" secondItem="7uv-em-N3u" secondAttribute="leading" id="hQ4-VP-4w9"/>
                             <constraint firstItem="IIi-OJ-wCM" firstAttribute="bottom" secondItem="7uv-em-N3u" secondAttribute="bottom" id="kx1-T1-zjB"/>
                             <constraint firstAttribute="centerX" secondItem="y7a-6j-8I8" secondAttribute="centerX" id="li5-sh-IHg"/>
                             <constraint firstAttribute="trailing" secondItem="7uv-em-N3u" secondAttribute="trailing" constant="75" id="myD-fB-WTh"/>
                             <constraint firstAttribute="centerY" secondItem="7uv-em-N3u" secondAttribute="centerY" id="s0o-Ct-sCz"/>
+                            <constraint firstAttribute="centerX" secondItem="EcW-TS-8jh" secondAttribute="centerX" id="tck-oZ-jTU"/>
                             <constraint firstItem="7uv-em-N3u" firstAttribute="top" secondItem="y7a-6j-8I8" secondAttribute="bottom" constant="8" id="vaO-4b-oh6"/>
                             <constraint firstItem="IIi-OJ-wCM" firstAttribute="trailing" secondItem="7uv-em-N3u" secondAttribute="trailing" id="yYn-6L-J8u"/>
                         </constraints>
@@ -226,12 +250,13 @@
                     <navigationItem key="navigationItem" title="New Game" id="Lr7-er-i1p"/>
                     <connections>
                         <outlet property="doneButton" destination="PG0-lL-qKg" id="ZyN-xO-DDI"/>
+                        <outlet property="nameTextField" destination="EcW-TS-8jh" id="MUQ-3p-elu"/>
                         <outlet property="photoImageView" destination="7uv-em-N3u" id="d7J-sp-3IA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pNt-vZ-fGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1970" y="-145"/>
+            <point key="canvasLocation" x="1970" y="-119"/>
         </scene>
         <!--Waiting for Players-->
         <scene sceneID="cHS-0u-xVR">
@@ -348,22 +373,22 @@
             <point key="canvasLocation" x="440" y="-501"/>
         </scene>
         <!--Join Game-->
-        <scene sceneID="HGg-Hg-ipy">
+        <scene sceneID="bcC-vc-fUD">
             <objects>
-                <viewController id="uFC-ce-oOh" sceneMemberID="viewController">
+                <viewController id="bNh-Kv-Tce" customClass="JoinGameInfoViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="TgT-IR-nfF"/>
-                        <viewControllerLayoutGuide type="bottom" id="Ng6-zj-1rp"/>
+                        <viewControllerLayoutGuide type="top" id="oc0-T4-7Vy"/>
+                        <viewControllerLayoutGuide type="bottom" id="VJY-tk-xDY"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="FZg-q3-juV">
+                    <view key="view" contentMode="scaleToFill" id="lPB-kU-e1z">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ndv-TY-gGa">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8o1-c2-yIC">
                                 <rect key="frame" x="0.0" y="525" width="600" height="75"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="75" id="k0Y-eb-swD"/>
+                                    <constraint firstAttribute="height" constant="75" id="WjI-RS-Wy8"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="15"/>
                                 <state key="normal" title="Done">
@@ -371,43 +396,82 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="aP2-7X-2ZC" kind="show" id="QYs-kf-qNU"/>
+                                    <segue destination="aP2-7X-2ZC" kind="show" identifier="signupToHopper" id="U6G-XR-74C"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5p4-rd-z8M">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GMv-Zx-abM">
                                 <rect key="frame" x="75" y="75" width="450" height="450"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="5p4-rd-z8M" secondAttribute="height" multiplier="1:1" id="pln-aV-hD2"/>
+                                    <constraint firstAttribute="width" secondItem="GMv-Zx-abM" secondAttribute="height" multiplier="1:1" id="TFs-8G-qmR"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Attach a selfie." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sc4-pw-7bl">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Attach a selfie." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2BW-KE-wWP">
                                 <rect key="frame" x="180" y="42" width="240.5" height="25"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="25"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="50F-vq-2sE">
+                                <rect key="frame" x="75" y="75" width="450" height="450"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pickerButton:" destination="bNh-Kv-Tce" eventType="touchUpInside" id="8bX-Id-Z8K"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VB1-UU-e0z">
+                                <rect key="frame" x="200" y="553" width="200" height="1"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="CYv-VV-pbL"/>
+                                </constraints>
+                            </view>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Your name." textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RqE-km-UZg">
+                                <rect key="frame" x="200" y="533" width="200" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="bFV-0Q-B3D"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="20"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="5p4-rd-z8M" firstAttribute="top" secondItem="sc4-pw-7bl" secondAttribute="bottom" constant="8" id="1PI-vk-4eC"/>
-                            <constraint firstItem="Ng6-zj-1rp" firstAttribute="top" secondItem="Ndv-TY-gGa" secondAttribute="bottom" id="5A6-4g-sar"/>
-                            <constraint firstAttribute="centerY" secondItem="5p4-rd-z8M" secondAttribute="centerY" id="AAp-d4-uxJ"/>
-                            <constraint firstItem="5p4-rd-z8M" firstAttribute="leading" secondItem="FZg-q3-juV" secondAttribute="leading" constant="75" id="Mmq-Ub-qfe"/>
-                            <constraint firstAttribute="trailing" secondItem="5p4-rd-z8M" secondAttribute="trailing" constant="75" id="gGH-pZ-nL9"/>
-                            <constraint firstItem="Ndv-TY-gGa" firstAttribute="leading" secondItem="FZg-q3-juV" secondAttribute="leading" id="iZD-fo-HfR"/>
-                            <constraint firstAttribute="trailing" secondItem="Ndv-TY-gGa" secondAttribute="trailing" id="wia-cY-3Ix"/>
-                            <constraint firstAttribute="centerX" secondItem="sc4-pw-7bl" secondAttribute="centerX" id="xZr-Og-FDv"/>
+                            <constraint firstItem="50F-vq-2sE" firstAttribute="leading" secondItem="GMv-Zx-abM" secondAttribute="leading" id="2w5-qK-3pc"/>
+                            <constraint firstAttribute="centerY" secondItem="GMv-Zx-abM" secondAttribute="centerY" id="6fK-sr-WPK"/>
+                            <constraint firstItem="GMv-Zx-abM" firstAttribute="leading" secondItem="lPB-kU-e1z" secondAttribute="leading" constant="75" id="8J3-0A-Bs7"/>
+                            <constraint firstItem="50F-vq-2sE" firstAttribute="top" secondItem="GMv-Zx-abM" secondAttribute="top" id="AnS-Ld-s9x"/>
+                            <constraint firstItem="8o1-c2-yIC" firstAttribute="leading" secondItem="lPB-kU-e1z" secondAttribute="leading" id="Aud-Mf-tI4"/>
+                            <constraint firstAttribute="trailing" secondItem="GMv-Zx-abM" secondAttribute="trailing" constant="75" id="HPe-Bb-f9U"/>
+                            <constraint firstItem="RqE-km-UZg" firstAttribute="top" secondItem="50F-vq-2sE" secondAttribute="bottom" constant="8" id="R40-gn-vhP"/>
+                            <constraint firstItem="VJY-tk-xDY" firstAttribute="top" secondItem="8o1-c2-yIC" secondAttribute="bottom" id="SPh-rQ-lid"/>
+                            <constraint firstAttribute="centerX" secondItem="2BW-KE-wWP" secondAttribute="centerX" id="WZH-K9-JWa"/>
+                            <constraint firstItem="GMv-Zx-abM" firstAttribute="top" secondItem="2BW-KE-wWP" secondAttribute="bottom" constant="8" id="Xxd-be-Kdl"/>
+                            <constraint firstItem="50F-vq-2sE" firstAttribute="trailing" secondItem="GMv-Zx-abM" secondAttribute="trailing" id="aLN-Uh-gVm"/>
+                            <constraint firstItem="RqE-km-UZg" firstAttribute="trailing" secondItem="VB1-UU-e0z" secondAttribute="trailing" id="bC7-qM-HVm"/>
+                            <constraint firstItem="VB1-UU-e0z" firstAttribute="top" secondItem="RqE-km-UZg" secondAttribute="bottom" id="kqJ-rn-o12"/>
+                            <constraint firstAttribute="centerX" secondItem="RqE-km-UZg" secondAttribute="centerX" id="ljJ-d9-PZC"/>
+                            <constraint firstItem="50F-vq-2sE" firstAttribute="bottom" secondItem="GMv-Zx-abM" secondAttribute="bottom" id="muX-07-oFK"/>
+                            <constraint firstAttribute="trailing" secondItem="8o1-c2-yIC" secondAttribute="trailing" id="njg-2F-CLx"/>
+                            <constraint firstItem="RqE-km-UZg" firstAttribute="leading" secondItem="VB1-UU-e0z" secondAttribute="leading" id="zY2-qG-faA"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Join Game" id="l6X-89-FwZ"/>
+                    <navigationItem key="navigationItem" title="Join Game" id="92l-Cn-K1H"/>
+                    <connections>
+                        <outlet property="doneButton" destination="8o1-c2-yIC" id="y6g-Sk-FGd"/>
+                        <outlet property="imageView" destination="GMv-Zx-abM" id="q7S-Mt-lpt"/>
+                        <outlet property="nameTextField" destination="RqE-km-UZg" id="wAP-uJ-vyk"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="r5o-AD-JHA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xmr-WY-sc8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2656" y="-863"/>
+            <point key="canvasLocation" x="2632" y="-863"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="FAC-Su-Qfm"/>
+        <segue reference="U6G-XR-74C"/>
     </inferredMetricsTieBreakers>
 </document>
