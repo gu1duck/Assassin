@@ -154,6 +154,8 @@
 				3FF0D5821B1D01F900E92D9E /* StartScreenVIewController.m */,
 				3F9AA23F1B1E3DA3009F792E /* JoinGameViewController.h */,
 				3F9AA2401B1E3DA3009F792E /* JoinGameViewController.m */,
+				C86339D31B1E40CE00C5CB4C /* PlayerCollectionViewCell.h */,
+				C86339D41B1E40CE00C5CB4C /* PlayerCollectionViewCell.m */,
 				3F92F0341B1D7774005CD2F2 /* HopperViewController.h */,
 				3F92F0351B1D7774005CD2F2 /* HopperViewController.m */,
 			);
@@ -195,8 +197,6 @@
 				3F05327B1B1D2299008210D8 /* GameInProgress.storyboard */,
 				3FADB4011B1C1CF9008195E5 /* LaunchScreen.xib */,
 				3FADB3F21B1C1CF9008195E5 /* Supporting Files */,
-				C86339D31B1E40CE00C5CB4C /* PlayerCollectionViewCell.h */,
-				C86339D41B1E40CE00C5CB4C /* PlayerCollectionViewCell.m */,
 			);
 			path = Assassin;
 			sourceTree = "<group>";
