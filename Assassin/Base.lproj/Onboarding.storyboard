@@ -247,7 +247,7 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pPg-Dk-8Hh">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pPg-Dk-8Hh">
                                 <rect key="frame" x="0.0" y="525" width="600" height="75"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -276,10 +276,10 @@
             </objects>
             <point key="canvasLocation" x="3431" y="-469"/>
         </scene>
-        <!--Storyboard Segue-->
+        <!--View Controller-->
         <scene sceneID="5R4-eY-xmQ">
             <objects>
-                <viewController id="ocI-bS-Kp2" customClass="StoryboardSegue" sceneMemberID="viewController">
+                <viewController id="ocI-bS-Kp2" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ISI-bp-zSb"/>
                         <viewControllerLayoutGuide type="bottom" id="EHI-HX-GkF"/>
@@ -287,7 +287,7 @@
                     <view key="view" contentMode="scaleToFill" id="d3L-Dh-a7e">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HWK-0m-9Hc" userLabel="First Responder" sceneMemberID="firstResponder"/>
