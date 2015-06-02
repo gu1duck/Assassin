@@ -7,6 +7,9 @@
 //
 
 #import "JoinGameViewController.h"
+#import <Parse/Parse.h>
+#import "JoinGameInfoViewController.h"
+
 
 @interface JoinGameViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *joinGameTextField;
@@ -45,17 +48,40 @@
 }
 
 -(void)textFieldDidEndEditing:(UITextField *)textField{
+    self.game = nil;
     if ([self.joinGameTextField.text length] == 4){
-        self.joinGameButton.alpha = 1;
-        self.joinGameButton.enabled = YES;
+        PFQuery* query = [[PFQuery alloc] initWithClassName:[Game parseClassName]];
+        [query whereKey:@"joinPIN" equalTo:self.joinGameTextField.text];
+        [query findObjectsInBackgroundWithBlock:^(NSArray* results, NSError* error){
+            if([results count] > 0){
+                self.game = [results firstObject];
+            }
+            self.joinGameButton.alpha = 1;
+            self.joinGameButton.enabled = YES;
+        }];
     } else {
         self.joinGameButton.alpha = 0.5;
         self.joinGameButton.enabled = NO;
     }
-    
         [UIView animateWithDuration:0.2 animations:^{
             self.view.frame = [[UIScreen mainScreen] bounds];
         }];
+}
+
+-(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
+    if (self.game){
+        return true;
+    }
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Invalid Code" message:@"There is no game with that code." delegate:self cancelButtonTitle:@"Damn" otherButtonTitles:nil];
+    [alert show];
+    return false;
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if([segue.identifier isEqualToString:@"JoinGameToInfo"]){
+        JoinGameInfoViewController* info = segue.destinationViewController;
+        info.game = self.game;
+    }
 }
 
 /*

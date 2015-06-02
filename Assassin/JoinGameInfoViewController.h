@@ -1,5 +1,5 @@
 //
-//  JoinGameViewController.h
+//  JoinGameInfoViewController.h
 //  Assassin
 //
 //  Created by Jeremy Petter on 2015-06-02.
@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Game.h"
 
-@interface JoinGameViewController : UIViewController
+@class Game;
+
+@interface JoinGameInfoViewController : UIViewController
 
 @property (nonatomic) Game* game;
 
