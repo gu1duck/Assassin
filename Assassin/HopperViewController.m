@@ -18,6 +18,7 @@
 
 @property (nonatomic) NSTimer *updateTimer;
 @property (nonatomic) NSArray *players;
+@property (nonatomic) NSDate *storedDate;
 
 
 @end
@@ -45,7 +46,9 @@
             self.players = results;
             [self.collectionView reloadData];
         }];
-
+    self.storedDate = [[NSDate alloc]init];
+    self.storedDate = [NSDate date];
+    
     self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:30
                                                             target:self
                                                           selector:@selector(updateGameData)
@@ -72,13 +75,15 @@
 }
 
 -(void)updateGameData {
+
     
     PFQuery *gameData = [[PFQuery alloc] initWithClassName:[Game parseClassName]];
-    [gameData whereKey:@"objectID" equalTo:self.game.objectId];
+    [gameData whereKey:@"objectId" equalTo:self.game.objectId];
+  //  [gameData whereKey:@"updatedAt" notEqualTo:self.game.updatedAt];
     [gameData findObjectsInBackgroundWithBlock:^(NSArray *results, NSError* error){
         Game *fetchedGame = [results firstObject];
         
-        if ([self.game.updatedAt isEqualToDate: fetchedGame.updatedAt] ) {
+        if ( [self.storedDate isEqualToDate:fetchedGame.updatedAt] ) {
             return;
         }
         
@@ -90,6 +95,7 @@
                 self.players = results;
                 [self.collectionView reloadData];
             }];
+            self.storedDate = fetchedGame.updatedAt;
         }
     }];
 }
