@@ -42,7 +42,7 @@
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
     
-    self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:10
+    self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:30
                                                         target:self
                                                       selector:@selector(updateGameData)
                                                       userInfo:nil
