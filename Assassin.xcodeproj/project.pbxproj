@@ -16,6 +16,7 @@
 		3F92F0361B1D7774005CD2F2 /* HopperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F92F0351B1D7774005CD2F2 /* HopperViewController.m */; };
 		3F9AA2411B1E3DA3009F792E /* JoinGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F9AA2401B1E3DA3009F792E /* JoinGameViewController.m */; };
 		3F9AA2441B1E5201009F792E /* JoinGameInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F9AA2431B1E5201009F792E /* JoinGameInfoViewController.m */; };
+		3F9AA2471B1E8585009F792E /* GameStateDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F9AA2461B1E8585009F792E /* GameStateDetailViewController.m */; };
 		3FADB3F51B1C1CF9008195E5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FADB3F41B1C1CF9008195E5 /* main.m */; };
 		3FADB3F81B1C1CF9008195E5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FADB3F71B1C1CF9008195E5 /* AppDelegate.m */; };
 		3FADB3FE1B1C1CF9008195E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FADB3FC1B1C1CF9008195E5 /* Main.storyboard */; };
@@ -70,6 +71,8 @@
 		3F9AA2401B1E3DA3009F792E /* JoinGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinGameViewController.m; sourceTree = "<group>"; };
 		3F9AA2421B1E5201009F792E /* JoinGameInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinGameInfoViewController.h; sourceTree = "<group>"; };
 		3F9AA2431B1E5201009F792E /* JoinGameInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinGameInfoViewController.m; sourceTree = "<group>"; };
+		3F9AA2451B1E8585009F792E /* GameStateDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameStateDetailViewController.h; sourceTree = "<group>"; };
+		3F9AA2461B1E8585009F792E /* GameStateDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStateDetailViewController.m; sourceTree = "<group>"; };
 		3FADB3EF1B1C1CF9008195E5 /* Assassin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Assassin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FADB3F31B1C1CF9008195E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3FADB3F41B1C1CF9008195E5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -148,10 +151,12 @@
 				3F0532841B1D2B1D008210D8 /* TargetViewController.m */,
 				3F0532891B1D2C07008210D8 /* UserTableViewController.h */,
 				3F05328A1B1D2C07008210D8 /* UserTableViewController.m */,
-				3F0532801B1D2A33008210D8 /* GamestateViewController.h */,
-				3F0532811B1D2A33008210D8 /* GamestateViewController.m */,
 				3FF0D5811B1D01F900E92D9E /* StartScreenVIewController.h */,
 				3FF0D5821B1D01F900E92D9E /* StartScreenVIewController.m */,
+				3F0532801B1D2A33008210D8 /* GamestateViewController.h */,
+				3F0532811B1D2A33008210D8 /* GamestateViewController.m */,
+				3F9AA2451B1E8585009F792E /* GameStateDetailViewController.h */,
+				3F9AA2461B1E8585009F792E /* GameStateDetailViewController.m */,
 				3F9AA23F1B1E3DA3009F792E /* JoinGameViewController.h */,
 				3F9AA2401B1E3DA3009F792E /* JoinGameViewController.m */,
 				C86339D31B1E40CE00C5CB4C /* PlayerCollectionViewCell.h */,
@@ -366,6 +371,7 @@
 				3FADB4381B1C1EF4008195E5 /* TestViewController.m in Sources */,
 				C86339D51B1E40CE00C5CB4C /* PlayerCollectionViewCell.m in Sources */,
 				3FF0D5831B1D01F900E92D9E /* StartScreenVIewController.m in Sources */,
+				3F9AA2471B1E8585009F792E /* GameStateDetailViewController.m in Sources */,
 				3FADB43A1B1C1EF4008195E5 /* Player.m in Sources */,
 				3F05328B1B1D2C07008210D8 /* UserTableViewController.m in Sources */,
 				3F92F0331B1D660B005CD2F2 /* NewGameViewController.m in Sources */,
