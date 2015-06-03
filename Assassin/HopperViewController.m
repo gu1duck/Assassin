@@ -70,9 +70,16 @@
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
-    return NO;
+    self.game.name = textField.text;
+    return YES;
 }
 
+- (IBAction)startButtonPressed:(UIButton *)sender {
+    if ([self.gameTitleTextField.text isEqualToString:@""]) {
+        self.gameTitleTextField.text = self.gameTitleTextField.placeholder;
+    }
+    self.game.name = self.gameTitleTextField.text;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
