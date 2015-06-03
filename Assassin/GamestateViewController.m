@@ -10,8 +10,10 @@
 #import "Player.h"
 #import "Game.h"
 #import "PlayerCollectionViewCell.h"
+#import "GameStateDetailViewController.h"
 
 @interface GamestateViewController ()
+@property (nonatomic) NSArray* players;
 
 @end
 
@@ -19,34 +21,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    PFQuery *playerQuery = [[PFQuery alloc] initWithClassName:[Player parseClassName]];
+    [playerQuery whereKey:@"objectId" equalTo:@"mBkKqslY8Y"];
+    NSArray* players = [playerQuery findObjects];
+    self.player = [players firstObject];
     
-    self.playersInGame = [[NSMutableArray alloc]init];
-    
-//    Game *game1 = [Game object];
-//    [game1 save];
-//    
-//    Player *player1 = [Player object];
-//    player1.name = @"Player1";
-//    player1.user = [PFUser currentUser];
-//    [player1 uploadAlivePhoto:[UIImage imageNamed:@"Jer"]];
-//    [player1 save];
-//    
-//    [game1.players addObject:player1];
-//    [game1 save];
-//    
-//    
-//    
-//    PFQuery *query1 =[PFQuery queryWithClassName:[Player parseClassName]];
-//    [query1 whereKey:@"game" equalTo:game1];
-//    [query1 findObjectsInBackgroundWithBlock:^(NSArray *players, NSError *error){
-//        for (Player *player in players) {
-//            [self.playersInGame addObject:player];
-//        }
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.collectionView reloadData];
-//        });
-//    }];
-    
+    self.game = self.player.game;
+    PFQuery *playersInGame = [[PFQuery alloc] initWithClassName:[Player parseClassName]];
+    [playersInGame whereKey:@"game" equalTo:self.game];
+    [playersInGame findObjectsInBackgroundWithBlock:^(NSArray* results, NSError* error){
+        self.players = results;
+        [self.collectionView reloadData];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -84,38 +70,43 @@
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 8;
-    //return self.playersInGame.count;
+    return [self.players count];
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
      PlayerCollectionViewCell *cell =[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     
-    cell.playerImageView.image = [UIImage imageNamed:@"Jer"];
-    cell.playerNameLabel.text = @"Jeremy";
+//    cell.playerImageView.image = [UIImage imageNamed:@"Jer"];
+//    cell.playerNameLabel.text = @"Jeremy";
     
-//    Player *aPlayer = [self.playersInGame objectAtIndex:indexPath.row];
-//    
-//    cell.playerNameLabel.text = aPlayer.name;
-//    
-//    if (aPlayer.deadPhoto) {
-//        cell.playerImageView.image = [aPlayer downloadDeadPhoto];
-//    }
-//    else
-//    {
-//        cell.playerImageView.image = [aPlayer downloadAlivePhoto];
-//    }
+    Player *aPlayer = self.players[indexPath.row];
+    
+    cell.playerNameLabel.text = aPlayer.name;
+    
+    if (aPlayer.deadPhoto) {
+        cell.playerImageView.image = [aPlayer downloadDeadPhoto];
+    }
+    else
+    {
+        [aPlayer.alivePhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
+            cell.playerImageView.image = [UIImage imageWithData:imageData];
+        }];
+        
+    }
     return cell;
 }
 
-/*
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"showDetail"]){
+        GameStateDetailViewController* detail = segue.destinationViewController;
+        NSIndexPath* index = [[self.collectionView indexPathsForSelectedItems] firstObject];
+        Player* player = self.players[index.row];
+        detail.player = player;
+    }
 }
-*/
+
 
 @end

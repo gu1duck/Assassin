@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Player;
+@class Game;
 
 @interface GamestateViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (strong, nonatomic) NSMutableArray *playersInGame;
+@property Player* player;
+@property Game* game;
 @end

@@ -78,7 +78,7 @@
                                         <connections>
                                             <outlet property="playerImageView" destination="EoL-VN-vf1" id="j8L-Wb-hj8"/>
                                             <outlet property="playerNameLabel" destination="h7D-hj-4th" id="1El-e1-gUx"/>
-                                            <segue destination="kxB-6a-qRW" kind="show" id="Rdo-t3-RaN"/>
+                                            <segue destination="kxB-6a-qRW" kind="show" identifier="showDetail" id="Rdo-t3-RaN"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -189,10 +189,10 @@
             </objects>
             <point key="canvasLocation" x="1259" y="1093"/>
         </scene>
-        <!--View Controller-->
+        <!--Game State Detail View Controller-->
         <scene sceneID="CRU-1l-BcQ">
             <objects>
-                <viewController id="kxB-6a-qRW" sceneMemberID="viewController">
+                <viewController id="kxB-6a-qRW" customClass="GameStateDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XWv-Aa-sRh"/>
                         <viewControllerLayoutGuide type="bottom" id="8Zl-Tl-7aP"/>
@@ -200,8 +200,40 @@
                     <view key="view" contentMode="scaleToFill" id="7xa-Ij-Ml5">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Cau-I6-mNB">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Cau-I6-mNB" secondAttribute="height" multiplier="1:1" id="orC-T4-4Kn"/>
+                                </constraints>
+                            </imageView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="FXU-Fa-V3N">
+                                <rect key="frame" x="200.5" y="507" width="200" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="VM5-VD-GDG"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Dead"/>
+                                    <segment title="Alive"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentedControlChanged:" destination="kxB-6a-qRW" eventType="valueChanged" id="H18-JQ-ZAD"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Cau-I6-mNB" secondAttribute="trailing" id="9Zu-hB-jwI"/>
+                            <constraint firstItem="Cau-I6-mNB" firstAttribute="leading" secondItem="7xa-Ij-Ml5" secondAttribute="leading" id="LPa-yA-LAf"/>
+                            <constraint firstAttribute="centerX" secondItem="FXU-Fa-V3N" secondAttribute="centerX" id="Oqp-zu-EKq"/>
+                            <constraint firstItem="8Zl-Tl-7aP" firstAttribute="top" secondItem="FXU-Fa-V3N" secondAttribute="bottom" constant="16" id="epM-eA-v9X"/>
+                            <constraint firstAttribute="centerY" secondItem="Cau-I6-mNB" secondAttribute="centerY" id="kLB-4V-2WB"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="imageView" destination="Cau-I6-mNB" id="rPi-da-6qc"/>
+                        <outlet property="segmentedControl" destination="FXU-Fa-V3N" id="us9-eY-IYZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0h5-FL-a3O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
