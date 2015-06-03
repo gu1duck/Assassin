@@ -34,8 +34,19 @@
     [game.players addObject:self];
     self.user = [PFUser currentUser];
     self.dead = NO;
+    self.current = YES;
     [self saveInBackground];
     [game saveInBackground];
+    
+    PFQuery *query = [PFQuery queryWithClassName:[Player parseClassName]];
+    [query whereKey:@"user" equalTo:self.user];
+    [query findObjectsInBackgroundWithBlock:^(NSArray* results, NSError* error){
+        for(Player* thisPlayer in results){
+            if (thisPlayer != self){
+                thisPlayer.current = NO;
+            }
+        }
+    }];
 }
 
 - (UIImage*) downloadAlivePhoto{
