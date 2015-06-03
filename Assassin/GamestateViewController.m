@@ -13,7 +13,10 @@
 #import "GameStateDetailViewController.h"
 
 @interface GamestateViewController ()
+
 @property (nonatomic) NSArray* players;
+@property (nonatomic) NSTimer* updateTimer;
+@property (nonatomic) NSDate* storedDate;
 
 @end
 
@@ -26,6 +29,8 @@
         self.players = results;
         [self.collectionView reloadData];
     }];
+    
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,9 +41,18 @@
 -(void)viewWillAppear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
+    
+    self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:10
+                                                        target:self
+                                                      selector:@selector(updateGameData)
+                                                      userInfo:nil
+                                                       repeats:YES];
+   
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
+    [self.updateTimer invalidate];
+    self.updateTimer = nil;
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     [super viewWillDisappear:animated];
 }
@@ -67,10 +81,10 @@
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-     PlayerCollectionViewCell *cell =[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    PlayerCollectionViewCell *cell =[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     
-//    cell.playerImageView.image = [UIImage imageNamed:@"Jer"];
-//    cell.playerNameLabel.text = @"Jeremy";
+    //    cell.playerImageView.image = [UIImage imageNamed:@"Jer"];
+    //    cell.playerNameLabel.text = @"Jeremy";
     
     Player *aPlayer = self.players[indexPath.row];
     
@@ -87,6 +101,30 @@
         
     }
     return cell;
+}
+
+-(void)updateGameData {
+    
+    PFQuery *gameData = [[PFQuery alloc]initWithClassName:[Game parseClassName]];
+    [gameData whereKey:@"objectId" equalTo:self.game.objectId];
+    [gameData findObjectsInBackgroundWithBlock:^(NSArray *results, NSError *error){
+        Game *fetchedGame = [results firstObject];
+        
+        if ([self.storedDate isEqualToDate:fetchedGame.updatedAt]) {
+            return;
+        }
+        else
+        {
+            PFQuery *playersInGame = [[PFQuery alloc] initWithClassName:[Player parseClassName]];
+            [playersInGame whereKey:@"game" equalTo:self.game];
+            [playersInGame findObjectsInBackgroundWithBlock:^(NSArray* results, NSError* error){
+                self.players = results;
+                [self.collectionView reloadData];
+            }];
+            self.storedDate = fetchedGame.updatedAt;
+        }
+    }];
+    
 }
 
 
