@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "Game.h"
+#import "Player.h"
 
-@interface HopperViewController : UIViewController
+@interface HopperViewController : UIViewController 
 @property (nonatomic) Game* game;
+@property (nonatomic) Player* player;
+
+
 
 @end
