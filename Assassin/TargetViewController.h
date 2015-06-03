@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Player;
 
 @interface TargetViewController : UIViewController <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *targetImageView;
+@property (nonatomic) Player* player;
 @end

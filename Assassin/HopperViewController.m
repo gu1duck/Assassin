@@ -9,6 +9,7 @@
 #import "HopperViewController.h"
 #import "PlayerCollectionViewCell.h"
 #import "GamestateViewController.h"
+#import "TargetViewController.h"
 
 @interface HopperViewController () <UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -50,7 +51,7 @@
     self.storedDate = [[NSDate alloc]init];
     self.storedDate = [NSDate date];
     
-    self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:30
+    self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:10
                                                             target:self
                                                           selector:@selector(updateGameData)
                                                           userInfo:nil
@@ -127,6 +128,11 @@
     GamestateViewController* gameState = [navController.viewControllers firstObject];
     gameState.player = self.player;
     gameState.game = self.game;
+    
+    UINavigationController* targetNavController = tabController.viewControllers[1];
+    GamestateViewController* target = [targetNavController.viewControllers firstObject];
+    target.player = self.player;
+    
     [self showViewController:tabController sender:self];
     
     
