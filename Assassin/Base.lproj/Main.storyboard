@@ -287,7 +287,6 @@
                                         </state>
                                         <connections>
                                             <action selector="startButtonPressed:" destination="aP2-7X-2ZC" eventType="touchUpInside" id="2FS-Od-zrt"/>
-                                            <segue destination="ocI-bS-Kp2" kind="show" id="l9a-Vl-HJu"/>
                                         </connections>
                                     </button>
                                 </subviews>

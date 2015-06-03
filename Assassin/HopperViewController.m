@@ -8,6 +8,7 @@
 
 #import "HopperViewController.h"
 #import "PlayerCollectionViewCell.h"
+#import "GamestateViewController.h"
 
 @interface HopperViewController () <UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -62,16 +63,19 @@
     self.gameTitleTextField.placeholder = [NSString stringWithFormat:@"%@'s Game",self.player.name];
     
    
+    [self showHostUI];
     
+    
+}
+
+-(void) showHostUI{
     if ( self.player.host == NO ) {
         self.headerConstraint.constant = 0;
         self.gameTitleTextField.hidden = YES;
         
         self.footerConstraint.constant = 0;
         
-         }
-    
-    
+    }
 }
 
 -(void)updateGameData {
@@ -94,6 +98,7 @@
             [playersInGame findObjectsInBackgroundWithBlock:^(NSArray* results, NSError* error){
                 self.players = results;
                 [self.collectionView reloadData];
+                [self showHostUI];
             }];
             self.storedDate = fetchedGame.updatedAt;
         }
@@ -108,11 +113,25 @@
 
 - (IBAction)startButtonPressed:(UIButton *)sender {
     [self.updateTimer invalidate];
-    
+    self.updateTimer = nil;
     if ([self.gameTitleTextField.text isEqualToString:@""]) {
-        self.gameTitleTextField.text = self.gameTitleTextField.placeholder;
+        self.game.name = self.gameTitleTextField.placeholder;
+    } else {
+        self.game.name = self.gameTitleTextField.text;
     }
-    self.game.name = self.gameTitleTextField.text;
+    
+    UITabBarController* tabController = [[UIStoryboard storyboardWithName:@"GameInProgress" bundle:nil] instantiateInitialViewController];
+    UINavigationController* navController = [tabController.viewControllers firstObject];
+    GamestateViewController* gameState = [navController.viewControllers firstObject];
+    gameState.player = self.player;
+    gameState.game = self.game;
+    [self showViewController:tabController sender:self];
+    
+    
+    
+    
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -170,14 +189,12 @@
     return cell;
 }
 
-/*
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
 }
-*/
+
 
 @end
