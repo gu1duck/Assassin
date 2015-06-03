@@ -47,7 +47,7 @@
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
-
+    
     [UIView animateWithDuration:0.2 animations:^{
         CGRect frameUp = self.view.frame;
         frameUp.origin.y -=150;
@@ -95,7 +95,11 @@
         dispatch_async(background_queue, ^{
             self.player.name = self.nameTextField.text;
             [self.player uploadAlivePhoto:self.image];
-            //insert [hopper.query update] or something
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [hopper updateGameData];
+                
+            });
         });
     }
 }
@@ -167,13 +171,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

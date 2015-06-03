@@ -262,7 +262,7 @@
         <!--Waiting for Players-->
         <scene sceneID="cHS-0u-xVR">
             <objects>
-                <viewController id="aP2-7X-2ZC" customClass="HopperViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="hopper" id="aP2-7X-2ZC" customClass="HopperViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0pv-rl-57L"/>
                         <viewControllerLayoutGuide type="bottom" id="kgq-ax-YE4"/>
@@ -624,6 +624,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="U6G-XR-74C"/>
+        <segue reference="FAC-Su-Qfm"/>
     </inferredMetricsTieBreakers>
 </document>
