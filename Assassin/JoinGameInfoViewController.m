@@ -29,7 +29,6 @@
     
     Player* player = [Player object];
     [player saveInBackgroundWithBlock:^(BOOL success, NSError* error){
-            [player setupWithGame:self.game];
             self.player = player;
     }];
 
@@ -75,6 +74,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"signupToHopper"]){
+        [self.player setupWithGame:self.game];
         HopperViewController* hopper = segue.destinationViewController;
         hopper.game = self.game;
         hopper.player = self.player;

@@ -55,7 +55,8 @@
             self.window.rootViewController = hopper;
         } else {
             UITabBarController* tabController = [[UIStoryboard storyboardWithName:@"GameInProgress" bundle:nil] instantiateInitialViewController];
-            GamestateViewController* gameState = [tabController.viewControllers firstObject];
+            UINavigationController* navController = [tabController.viewControllers firstObject];
+            GamestateViewController* gameState = [navController.viewControllers firstObject];
             gameState.player = player;
             gameState.game = game;
             self.window.rootViewController = tabController;

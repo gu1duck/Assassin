@@ -20,13 +20,6 @@
 @implementation GamestateViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    PFQuery *playerQuery = [[PFQuery alloc] initWithClassName:[Player parseClassName]];
-    [playerQuery whereKey:@"objectId" equalTo:@"mBkKqslY8Y"];
-    NSArray* players = [playerQuery findObjects];
-    self.player = [players firstObject];
-    
-    self.game = self.player.game;
     PFQuery *playersInGame = [[PFQuery alloc] initWithClassName:[Player parseClassName]];
     [playersInGame whereKey:@"game" equalTo:self.game];
     [playersInGame findObjectsInBackgroundWithBlock:^(NSArray* results, NSError* error){
