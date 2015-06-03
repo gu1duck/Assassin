@@ -50,7 +50,7 @@
     self.storedDate = [[NSDate alloc]init];
     self.storedDate = [NSDate date];
     
-    self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:30
+    self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:15
                                                             target:self
                                                           selector:@selector(updateGameData)
                                                           userInfo:nil
