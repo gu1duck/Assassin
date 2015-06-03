@@ -20,6 +20,7 @@
 @dynamic alivePhoto;
 @dynamic host;
 @dynamic current;
+@dynamic target;
 
 + (void)load {
     [self registerSubclass];

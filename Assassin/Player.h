@@ -16,6 +16,7 @@
 @property (nonatomic) PFUser* user;
 @property (nonatomic) PFFile* alivePhoto;
 @property (nonatomic) PFFile* deadPhoto;
+@property (nonatomic) Player* target;
 @property (nonatomic) BOOL dead;
 @property (nonatomic) BOOL host;
 @property (nonatomic) BOOL current;

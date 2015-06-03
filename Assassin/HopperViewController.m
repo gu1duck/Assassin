@@ -114,12 +114,14 @@
 - (IBAction)startButtonPressed:(UIButton *)sender {
     [self.updateTimer invalidate];
     self.updateTimer = nil;
+    
+    [self assignPlayertargets];
+    
     if ([self.gameTitleTextField.text isEqualToString:@""]) {
         self.game.name = self.gameTitleTextField.placeholder;
     } else {
         self.game.name = self.gameTitleTextField.text;
     }
-    
     UITabBarController* tabController = [[UIStoryboard storyboardWithName:@"GameInProgress" bundle:nil] instantiateInitialViewController];
     UINavigationController* navController = [tabController.viewControllers firstObject];
     GamestateViewController* gameState = [navController.viewControllers firstObject];
@@ -190,11 +192,33 @@
 }
 
 
-#pragma mark - Navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void)assignPlayertargets{
+    NSMutableArray *remainingPlayers = [self.players mutableCopy];
     
+    int index = arc4random_uniform([remainingPlayers count]);
+    Player* player1 = remainingPlayers[index];
+    Player* player0 = player1;
+    [remainingPlayers removeObjectAtIndex:index];
+    Player* player2;
+    while ([remainingPlayers count] > 0){
+        index = arc4random_uniform([remainingPlayers count]);
+        player2 = remainingPlayers[index];
+        [remainingPlayers removeObjectAtIndex:index];
+        player1.target = player2;
+        [player1 saveInBackground];
+        //NSLog(@"%@'s target is %@.", player1.name, player1.target.name);
+        player1 = player2;
+    }
+    player2.target = player0;
+    [player2 saveInBackground];
+    //NSLog(@"%@'s target is %@.", player2.name, player2.target.name);
 }
+
+//#pragma mark - Navigation
+//
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    
+//}
 
 
 @end
