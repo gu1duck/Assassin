@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>C2B5C192-1B35-47A6-9717-A7DBF413F4B9</string>
 	<key>IDESourceControlProjectName</key>
-	<string>Assassin</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>C97E233317BBED3A44D5AE402B63B82813467CC0</key>
 		<string>github.com:jeremypetter/Assassin.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Assassin.xcodeproj</string>
+	<string>Assassin.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>C97E233317BBED3A44D5AE402B63B82813467CC0</key>
