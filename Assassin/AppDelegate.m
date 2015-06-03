@@ -32,6 +32,10 @@
                   clientKey:@"fZ6v6LZaYV5hl91Q7oTxCZbSIf0chAOxY5AsUaz6"];
     
     PFUser* user = [PFUser currentUser];
+    if (user.objectId == nil){
+        [user save];
+    }
+    
     PFQuery* query = [PFQuery queryWithClassName:[Player parseClassName]];
     [query whereKey:@"user" equalTo:user];
     [query whereKey:@"current" equalTo:@YES];
