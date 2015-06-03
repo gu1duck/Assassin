@@ -84,7 +84,10 @@
         dispatch_async(background_queue, ^{
             self.player.name = self.nameTextField.text;
             [self.player uploadAlivePhoto:self.image];
-            //insert [hopper.query update] or something
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [hopper updateGameData];
+
+            });
         });
     }
 }

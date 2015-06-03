@@ -15,5 +15,5 @@
 @property (nonatomic) Player* player;
 
 
-
+-(void)updateGameData;
 @end

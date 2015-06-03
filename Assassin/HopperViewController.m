@@ -16,8 +16,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *footerConstraint;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
-
-
+@property (nonatomic) NSTimer *updateTimer;
 @property (nonatomic) NSArray *players;
 
 
@@ -37,13 +36,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
    
-        PFQuery *playerQuery = [[PFQuery alloc] initWithClassName:[Player parseClassName]];
-        [playerQuery whereKey:@"objectId" equalTo:@"mBkKqslY8Y"];
-        NSArray* players = [playerQuery findObjects];
-        self.player = [players firstObject];
+  
     
         
-        self.game = self.player.game;
         PFQuery *playersInGame = [[PFQuery alloc] initWithClassName:[Player parseClassName]];
         [playersInGame whereKey:@"game" equalTo:self.game];
         [playersInGame findObjectsInBackgroundWithBlock:^(NSArray* results, NSError* error){
@@ -51,6 +46,14 @@
             [self.collectionView reloadData];
         }];
 
+    self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:30
+                                                            target:self
+                                                          selector:@selector(updateGameData)
+                                                          userInfo:nil
+                                                           repeats:YES];
+   
+    
+    
     
     self.gameTitleTextField.delegate = self;
     self.gameTitleTextField.placeholder = [NSString stringWithFormat:@"%@'s Game",self.player.name];
@@ -68,11 +71,43 @@
     
 }
 
--(BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
-    return NO;
+-(void)updateGameData {
+    
+    PFQuery *gameData = [[PFQuery alloc] initWithClassName:[Game parseClassName]];
+    [gameData whereKey:@"objectID" equalTo:self.game.objectId];
+    [gameData findObjectsInBackgroundWithBlock:^(NSArray *results, NSError* error){
+        Game *fetchedGame = [results firstObject];
+        
+        if ([self.game.updatedAt isEqualToDate: fetchedGame.updatedAt] ) {
+            return;
+        }
+        
+        else
+        {
+            PFQuery *playersInGame = [[PFQuery alloc] initWithClassName:[Player parseClassName]];
+            [playersInGame whereKey:@"game" equalTo:self.game];
+            [playersInGame findObjectsInBackgroundWithBlock:^(NSArray* results, NSError* error){
+                self.players = results;
+                [self.collectionView reloadData];
+            }];
+        }
+    }];
 }
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    self.game.name = textField.text;
+    return YES;
+}
+
+- (IBAction)startButtonPressed:(UIButton *)sender {
+    [self.updateTimer invalidate];
+    
+    if ([self.gameTitleTextField.text isEqualToString:@""]) {
+        self.gameTitleTextField.text = self.gameTitleTextField.placeholder;
+    }
+    self.game.name = self.gameTitleTextField.text;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
