@@ -8,6 +8,9 @@
 
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
+#import "Player.h"
+#import "HopperViewController.h"
+#import "GamestateViewController.h"
 
 
 @interface AppDelegate ()
@@ -20,10 +23,41 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [Parse enableLocalDatastore];
     [PFUser enableAutomaticUser];
+    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    [self.window makeKeyAndVisible];
+    
     
     // Initialize Parse.
     [Parse setApplicationId:@"SmBbPuPMf0DQNHMCk5nePFyeRiXHonEML6Vtm0uT"
                   clientKey:@"fZ6v6LZaYV5hl91Q7oTxCZbSIf0chAOxY5AsUaz6"];
+    
+    PFUser* user = [PFUser currentUser];
+    PFQuery* query = [PFQuery queryWithClassName:[Player parseClassName]];
+    [query whereKey:@"user" equalTo:user];
+    [query whereKey:@"current" equalTo:@YES];
+    NSArray* players = [query findObjects];
+    
+    if ([players count]==0){
+        UINavigationController* navController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
+        self.window.rootViewController = navController;
+    } else {
+        Player* player = [players firstObject];
+        Game* game = player.game;
+        [game fetchIfNeeded];
+        if (game.joinable){
+            HopperViewController *hopper = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"hopper"];
+            hopper.game = game;
+            hopper.player = player;
+            self.window.rootViewController = hopper;
+        } else {
+            UITabBarController* tabController = [[UIStoryboard storyboardWithName:@"GameInProgress" bundle:nil] instantiateInitialViewController];
+            GamestateViewController* gameState = [tabController.viewControllers firstObject];
+            gameState.player = player;
+            gameState.game = game;
+            self.window.rootViewController = tabController;
+        }
+    }
+    
     
         return YES;
 }
