@@ -124,6 +124,10 @@
     } else {
         self.game.name = self.gameTitleTextField.text;
     }
+    
+    self.game.joinable = NO;
+    [self.game saveInBackground];
+    
     UITabBarController* tabController = [[UIStoryboard storyboardWithName:@"GameInProgress" bundle:nil] instantiateInitialViewController];
     UINavigationController* navController = [tabController.viewControllers firstObject];
     GamestateViewController* gameState = [navController.viewControllers firstObject];
@@ -183,7 +187,9 @@
     cell.playerNameLabel.text = aPlayer.name;
     
     if (aPlayer.deadPhoto) {
-        cell.playerImageView.image = [aPlayer downloadDeadPhoto];
+        [aPlayer.deadPhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
+            cell.playerImageView.image = [UIImage imageWithData:imageData];
+        }];
     }
     else
     {
@@ -197,9 +203,10 @@
 
 - (void) assignPlayerTargets{
     int count = 1;
+    Player* player2;
     for (Player* player in self.players){
-        Player* player2 = self.players[count];
         if (self.players[count]){
+            player2 = self.players[count];
             player.target = player2;
         } else {
             player.target = self.players[0];

@@ -10,6 +10,7 @@
 #import "Player.h"
 
 @interface TargetViewController ()
+@property (weak, nonatomic) IBOutlet UIButton *assassinateButton;
 
 @end
 
@@ -17,7 +18,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    }
+    self.assassinateButton.layer.cornerRadius = self.assassinateButton.frame.size.width/2;
+    self.assassinateButton.layer.masksToBounds = YES;
+    [self.player.target fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
+        if (self.player.target.dead){
+            [self.player.target.deadPhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
+                self.targetImageView.image = [UIImage imageWithData:imageData];
+            }];
+        } else {
+            [self.player.target.alivePhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
+                self.targetImageView.image = [UIImage imageWithData:imageData];
+                
+            }];
+        }
+    }];
+
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -27,16 +43,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
-    if (self.player.target.dead){
-        [self.player.target.deadPhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
-            self.targetImageView.image = [UIImage imageWithData:imageData];
-        }];
-    } else {
-        [self.player.target.alivePhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
-            self.targetImageView.image = [UIImage imageWithData:imageData];
-        }];
     }
-}
 
 -(void)viewWillDisappear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:NO animated:animated];
@@ -83,9 +90,12 @@
     NSData* deadPhotoJPG = UIImageJPEGRepresentation(image, 1.0);
     PFFile* deadPhoto = [PFFile fileWithName:@"dead.jpeg" data:deadPhotoJPG];
     [deadPhoto saveInBackgroundWithBlock:^(BOOL success, NSError* error){
-        self.player.target.deadPhoto = deadPhoto;
-        [self.player.target saveInBackground];
-        self.targetImageView.image = image;
+        [self.player.target fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
+            self.player.target.deadPhoto = deadPhoto;
+            self.player.target.dead = true;
+            [self.player.target saveInBackground];
+            self.targetImageView.image = image;
+        }];
     }];
     
     
