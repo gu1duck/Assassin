@@ -14,6 +14,7 @@
 @interface HopperViewController () <UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *gameTitleTextField;
+@property (weak, nonatomic) IBOutlet UITextField *pinLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *footerConstraint;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -62,7 +63,7 @@
     
     self.gameTitleTextField.delegate = self;
     self.gameTitleTextField.placeholder = [NSString stringWithFormat:@"%@'s Game",self.player.name];
-    
+    self.pinLabel.text = [NSString stringWithFormat:@"Pin:%@",self.game.joinPIN];
    
     [self showHostUI];
     
