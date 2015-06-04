@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *footerConstraint;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerTopMargin;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *footerBottomMargin;
 
 @property (nonatomic) NSTimer *updateTimer;
 @property (nonatomic) NSArray *players;
@@ -65,44 +67,80 @@
     self.gameTitleTextField.placeholder = [NSString stringWithFormat:@"%@'s Game",self.player.name];
     self.pinLabel.text = [NSString stringWithFormat:@"Join with code \"%@\"",self.game.joinPIN];
    
-    [self showHostUI];
+    [self hideHostUI];
     
     
 }
 
--(void) showHostUI{
+-(void) hideHostUI{
     if ( self.player.host == NO ) {
-        self.headerConstraint.constant = 0;
-        self.gameTitleTextField.hidden = YES;
+        self.headerTopMargin.constant -=75;
+        self.footerBottomMargin.constant -=75;
         
-        self.footerConstraint.constant = 0;
+//        self.headerConstraint.constant = 0;
+        self.gameTitleTextField.hidden = YES;
+//        
+//        self.footerConstraint.constant = 0;
+        
+    }
+}
+
+-(void) showHostUI{
+    if ( self.player.host ) {
+        if(self.headerTopMargin.constant != 0 || self.footerBottomMargin.constant != 0){
+            self.headerTopMargin.constant = 0;
+            self.footerBottomMargin.constant = 0;
+            [UIView animateWithDuration:0.2 animations:^{
+                
+                //self.headerConstraint.constant = 75;
+                self.gameTitleTextField.hidden = NO;
+                
+                //self.footerConstraint.constant = 75;
+                [self.view layoutIfNeeded];
+            }];
+        }
         
     }
 }
 
 -(void)updateGameData {
-
+    [self showHostUI];
     
     PFQuery *gameData = [[PFQuery alloc] initWithClassName:[Game parseClassName]];
     [gameData whereKey:@"objectId" equalTo:self.game.objectId];
   //  [gameData whereKey:@"updatedAt" notEqualTo:self.game.updatedAt];
     [gameData findObjectsInBackgroundWithBlock:^(NSArray *results, NSError* error){
         Game *fetchedGame = [results firstObject];
-        
-        if ( [self.storedDate isEqualToDate:fetchedGame.updatedAt] ) {
-            return;
-        }
-        
-        else
-        {
-            PFQuery *playersInGame = [[PFQuery alloc] initWithClassName:[Player parseClassName]];
-            [playersInGame whereKey:@"game" equalTo:self.game];
-            [playersInGame findObjectsInBackgroundWithBlock:^(NSArray* results, NSError* error){
-                self.players = results;
-                [self.collectionView reloadData];
-                [self showHostUI];
-            }];
-            self.storedDate = fetchedGame.updatedAt;
+        if (fetchedGame.joinable){
+            if ( [self.storedDate isEqualToDate:fetchedGame.updatedAt] ) {
+                return;
+            }
+            
+            else
+            {
+                PFQuery *playersInGame = [[PFQuery alloc] initWithClassName:[Player parseClassName]];
+                [playersInGame whereKey:@"game" equalTo:self.game];
+                [playersInGame findObjectsInBackgroundWithBlock:^(NSArray* results, NSError* error){
+                    self.players = results;
+                    [self.collectionView reloadData];
+                    
+                }];
+                self.storedDate = fetchedGame.updatedAt;
+            }
+        } else {
+            [self.updateTimer invalidate];
+            self.updateTimer = nil;
+            UITabBarController* tabController = [[UIStoryboard storyboardWithName:@"GameInProgress" bundle:nil] instantiateInitialViewController];
+            UINavigationController* navController = [tabController.viewControllers firstObject];
+            GamestateViewController* gameState = [navController.viewControllers firstObject];
+            gameState.player = self.player;
+            gameState.game = self.game;
+            
+            UINavigationController* targetNavController = tabController.viewControllers[1];
+            TargetViewController* target = [targetNavController.viewControllers firstObject];
+            target.player = self.player;
+            
+            [self showViewController:tabController sender:self];
         }
     }];
 }
@@ -125,7 +163,7 @@
         self.game.name = self.gameTitleTextField.text;
     }
     
-    //self.game.joinable = NO;
+    self.game.joinable = NO;
     [self.game saveInBackground];
     
     UITabBarController* tabController = [[UIStoryboard storyboardWithName:@"GameInProgress" bundle:nil] instantiateInitialViewController];

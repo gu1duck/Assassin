@@ -94,6 +94,7 @@
             self.player.target.deadPhoto = deadPhoto;
             self.player.target.dead = true;
             [self.player.target saveInBackground];
+            [self.player.game saveInBackground];
             self.targetImageView.image = image;
         }];
     }];

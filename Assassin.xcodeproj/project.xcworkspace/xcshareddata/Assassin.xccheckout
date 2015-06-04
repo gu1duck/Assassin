@@ -11,7 +11,7 @@
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>C97E233317BBED3A44D5AE402B63B82813467CC0</key>
-		<string>https://github.com/jeremypetter/assassin</string>
+		<string>github.com:jeremypetter/Assassin.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Assassin.xcodeproj</string>
@@ -21,7 +21,7 @@
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/jeremypetter/assassin</string>
+	<string>github.com:jeremypetter/Assassin.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
@@ -34,7 +34,7 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>C97E233317BBED3A44D5AE402B63B82813467CC0</string>
 			<key>IDESourceControlWCCName</key>
-			<string>assassin</string>
+			<string>Assassin</string>
 		</dict>
 	</array>
 </dict>

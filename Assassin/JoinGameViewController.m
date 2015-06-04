@@ -70,7 +70,12 @@
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
     if (self.game){
+        if (self.game.joinable){
         return true;
+        }
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Game In Progress" message:@"That game has already started, dog." delegate:self cancelButtonTitle:@"Damn, dog" otherButtonTitles:nil];
+        [alert show];
+        return false;
     }
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Invalid Code" message:@"There is no game with that code." delegate:self cancelButtonTitle:@"Damn" otherButtonTitles:nil];
     [alert show];
