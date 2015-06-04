@@ -63,7 +63,7 @@
     
     self.gameTitleTextField.delegate = self;
     self.gameTitleTextField.placeholder = [NSString stringWithFormat:@"%@'s Game",self.player.name];
-    self.pinLabel.text = [NSString stringWithFormat:@"Pin:%@",self.game.joinPIN];
+    self.pinLabel.text = [NSString stringWithFormat:@"Join with code \"%@\"",self.game.joinPIN];
    
     [self showHostUI];
     

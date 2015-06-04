@@ -25,8 +25,16 @@
     [PFUser enableAutomaticUser];
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     [self.window makeKeyAndVisible];
+
+    UINavigationBar *navigationBarAppearance = [UINavigationBar appearance];
+    navigationBarAppearance.tintColor = [UIColor redColor];
     
+    UITabBar *tabBarAppearance = [UITabBar appearance];
+    tabBarAppearance.tintColor = [UIColor redColor];
+
     
+    [Player registerSubclass];
+    [Game registerSubclass];
     // Initialize Parse.
     [Parse setApplicationId:@"SmBbPuPMf0DQNHMCk5nePFyeRiXHonEML6Vtm0uT"
                   clientKey:@"fZ6v6LZaYV5hl91Q7oTxCZbSIf0chAOxY5AsUaz6"];
