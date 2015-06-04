@@ -7,6 +7,7 @@
 //
 
 #import "UserViewController.h"
+#import "SwitchGameTableViewController.h"
 
 @interface UserViewController () <UIAlertViewDelegate, UITextFieldDelegate>
 
@@ -98,14 +99,15 @@
 
 
 
-/*
  #pragma mark - Navigation
  
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
+     UINavigationController *navController = (UINavigationController *)[segue destinationViewController];
+     SwitchGameTableViewController *switchController = [navController.viewControllers firstObject];
+     switchController.player = self.CurrentPlayer;
+ 
  }
- */
+
 
 @end
