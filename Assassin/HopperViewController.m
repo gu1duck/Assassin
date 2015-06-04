@@ -116,7 +116,7 @@
     [self.updateTimer invalidate];
     self.updateTimer = nil;
     
-    [self assignPlayertargets];
+    [self assignPlayerTargets];
     
     if ([self.gameTitleTextField.text isEqualToString:@""]) {
         self.game.name = self.gameTitleTextField.placeholder;
@@ -130,7 +130,7 @@
     gameState.game = self.game;
     
     UINavigationController* targetNavController = tabController.viewControllers[1];
-    GamestateViewController* target = [targetNavController.viewControllers firstObject];
+    TargetViewController* target = [targetNavController.viewControllers firstObject];
     target.player = self.player;
     
     [self showViewController:tabController sender:self];
@@ -177,9 +177,6 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     PlayerCollectionViewCell *cell =[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     
-    //    cell.playerImageView.image = [UIImage imageNamed:@"Jer"];
-    //    cell.playerNameLabel.text = @"Jeremy";
-    
     Player *aPlayer = self.players[indexPath.row];
     
     cell.playerNameLabel.text = aPlayer.name;
@@ -197,28 +194,40 @@
     return cell;
 }
 
-
-- (void)assignPlayertargets{
-    NSMutableArray *remainingPlayers = [self.players mutableCopy];
-    
-    int index = arc4random_uniform([remainingPlayers count]);
-    Player* player1 = remainingPlayers[index];
-    Player* player0 = player1;
-    [remainingPlayers removeObjectAtIndex:index];
-    Player* player2;
-    while ([remainingPlayers count] > 0){
-        index = arc4random_uniform([remainingPlayers count]);
-        player2 = remainingPlayers[index];
-        [remainingPlayers removeObjectAtIndex:index];
-        player1.target = player2;
-        [player1 saveInBackground];
-        //NSLog(@"%@'s target is %@.", player1.name, player1.target.name);
-        player1 = player2;
+- (void) assignPlayerTargets{
+    int count = 1;
+    for (Player* player in self.players){
+        Player* player2 = self.players[count];
+        if (self.players[count]){
+            player.target = player2;
+        } else {
+            player.target = self.players[0];
+        }
+        [player saveInBackground];
     }
-    player2.target = player0;
-    [player2 saveInBackground];
-    //NSLog(@"%@'s target is %@.", player2.name, player2.target.name);
 }
+
+//- (void)assignPlayerTargets{
+//    NSMutableArray *remainingPlayers = [self.players mutableCopy];
+//    
+//    int index = arc4random_uniform((int)[remainingPlayers count]);
+//    Player* player1 = remainingPlayers[index];
+//    Player* player0 = player1;
+//    [remainingPlayers removeObjectAtIndex:index];
+//    Player* player2;
+//    while ([remainingPlayers count] > 0){
+//        index = arc4random_uniform((int)[remainingPlayers count]);
+//        player2 = remainingPlayers[index];
+//        [remainingPlayers removeObjectAtIndex:index];
+//        player1.target = player2;
+//        [player1 saveInBackground];
+//        //NSLog(@"%@'s target is %@.", player1.name, player1.target.name);
+//        player1 = player2;
+//    }
+//    player2.target = player0;
+//    [player2 saveInBackground];
+//    NSLog(@"%@'s target is %@.", player2.name, player2.target.name);
+//}
 
 //#pragma mark - Navigation
 //
