@@ -27,15 +27,15 @@
 -(void)viewWillAppear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
-//    if (self.player.target.dead){
-//        [self.player.target.deadPhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
-//            self.targetImageView.image = [UIImage imageWithData:imageData];
-//        }];
-//    } else {
-//        [self.player.target.alivePhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
-//            self.targetImageView.image = [UIImage imageWithData:imageData];
-//        }];
-//    }
+    if (self.player.target.dead){
+        [self.player.target.deadPhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
+            self.targetImageView.image = [UIImage imageWithData:imageData];
+        }];
+    } else {
+        [self.player.target.alivePhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
+            self.targetImageView.image = [UIImage imageWithData:imageData];
+        }];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated{

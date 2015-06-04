@@ -243,7 +243,7 @@
         <scene sceneID="EyB-06-vFk">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eC8-Q3-Kb7" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Game" id="arD-ca-L3w"/>
+                    <tabBarItem key="tabBarItem" title="Game" image="Opera Glasses-50" id="arD-ca-L3w"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="0yA-xv-q2m">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -262,7 +262,7 @@
         <scene sceneID="bdV-HF-KYo">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ncH-yS-Yer" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Target" id="YcB-tB-eCq"/>
+                    <tabBarItem key="tabBarItem" title="Target" image="Define Location-50" id="YcB-tB-eCq"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hWt-HE-3jP">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -308,7 +308,7 @@
         <scene sceneID="VA0-ee-vFT">
             <objects>
                 <navigationController id="aig-t9-KDn" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="User" id="1qa-fD-6Zb"/>
+                    <tabBarItem key="tabBarItem" title="User" image="User Female Circle-50" id="1qa-fD-6Zb"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bJ3-nK-nlG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -343,6 +343,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Define Location-50" width="25" height="25"/>
         <image name="Jer" width="250" height="250"/>
+        <image name="Opera Glasses-50" width="25" height="25"/>
+        <image name="User Female Circle-50" width="25" height="25"/>
     </resources>
 </document>
