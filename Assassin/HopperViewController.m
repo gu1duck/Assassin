@@ -125,7 +125,7 @@
         self.game.name = self.gameTitleTextField.text;
     }
     
-    self.game.joinable = NO;
+    //self.game.joinable = NO;
     [self.game saveInBackground];
     
     UITabBarController* tabController = [[UIStoryboard storyboardWithName:@"GameInProgress" bundle:nil] instantiateInitialViewController];
@@ -202,17 +202,26 @@
 }
 
 - (void) assignPlayerTargets{
-    int count = 1;
-    Player* player2;
-    for (Player* player in self.players){
-        if (self.players[count]){
-            player2 = self.players[count];
-            player.target = player2;
-        } else {
-            player.target = self.players[0];
+    
+    dispatch_queue_t background_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+    dispatch_async(background_queue, ^{
+        int count = 1;
+        Player* player2;
+        for (Player* player in self.players){
+            [player fetchIfNeeded];
+            if (count < self.players.count){
+                player2 = self.players[count];
+                [player fetchIfNeeded];
+                player.target = player2;
+            } else {
+                player.target = self.players[0];
+            }
+            [player save];
+            count++;
         }
-        [player saveInBackground];
-    }
+    });
+
 }
 
 //- (void)assignPlayerTargets{
