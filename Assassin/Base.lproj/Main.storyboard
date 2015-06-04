@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E26a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZLv-mf-P90">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZLv-mf-P90">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -476,10 +476,10 @@
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="n26-xy-ham"/>
+                                        <exclude reference="cjc-mx-kqs"/>
                                         <exclude reference="AmC-FX-2PV"/>
                                         <exclude reference="D1R-Bn-IYj"/>
                                         <exclude reference="twW-hI-YE9"/>
-                                        <exclude reference="cjc-mx-kqs"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -606,9 +606,11 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="TJc-ns-xCG" id="myE-iQ-MIg"/>
+                        <outlet property="footerBottomMargin" destination="SF0-Yz-DwY" id="qUF-aR-JhV"/>
                         <outlet property="footerConstraint" destination="X4Y-TF-h4V" id="w3G-rp-3rK"/>
                         <outlet property="gameTitleTextField" destination="q5s-Y1-Brw" id="720-fS-eNM"/>
                         <outlet property="headerConstraint" destination="eEQ-r0-3Nt" id="tpe-xE-iqo"/>
+                        <outlet property="headerTopMargin" destination="c96-uj-R6z" id="uKR-Sb-P93"/>
                         <outlet property="pinLabel" destination="KMH-Vi-iLo" id="a5a-UY-SAs"/>
                     </connections>
                 </viewController>

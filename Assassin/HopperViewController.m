@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *footerConstraint;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerTopMargin;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *footerBottomMargin;
 
 @property (nonatomic) NSTimer *updateTimer;
 @property (nonatomic) NSArray *players;
@@ -65,23 +67,44 @@
     self.gameTitleTextField.placeholder = [NSString stringWithFormat:@"%@'s Game",self.player.name];
     self.pinLabel.text = [NSString stringWithFormat:@"Join with code \"%@\"",self.game.joinPIN];
    
-    [self showHostUI];
+    [self hideHostUI];
     
     
 }
 
--(void) showHostUI{
+-(void) hideHostUI{
     if ( self.player.host == NO ) {
-        self.headerConstraint.constant = 0;
-        self.gameTitleTextField.hidden = YES;
+        self.headerTopMargin.constant -=75;
+        self.footerBottomMargin.constant -=75;
         
-        self.footerConstraint.constant = 0;
+//        self.headerConstraint.constant = 0;
+        self.gameTitleTextField.hidden = YES;
+//        
+//        self.footerConstraint.constant = 0;
+        
+    }
+}
+
+-(void) showHostUI{
+    if ( self.player.host ) {
+        if(self.headerTopMargin.constant != 0 || self.footerBottomMargin.constant != 0){
+            self.headerTopMargin.constant = 0;
+            self.footerBottomMargin.constant = 0;
+            [UIView animateWithDuration:0.2 animations:^{
+                
+                //self.headerConstraint.constant = 75;
+                self.gameTitleTextField.hidden = NO;
+                
+                //self.footerConstraint.constant = 75;
+                [self.view layoutIfNeeded];
+            }];
+        }
         
     }
 }
 
 -(void)updateGameData {
-
+    [self showHostUI];
     
     PFQuery *gameData = [[PFQuery alloc] initWithClassName:[Game parseClassName]];
     [gameData whereKey:@"objectId" equalTo:self.game.objectId];
@@ -100,7 +123,7 @@
                 [playersInGame findObjectsInBackgroundWithBlock:^(NSArray* results, NSError* error){
                     self.players = results;
                     [self.collectionView reloadData];
-                    [self showHostUI];
+                    
                 }];
                 self.storedDate = fetchedGame.updatedAt;
             }

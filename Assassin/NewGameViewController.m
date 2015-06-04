@@ -89,6 +89,7 @@
     if ([segue.identifier isEqualToString:@"newGameToHopper"]){
         HopperViewController* hopper = segue.destinationViewController;
         hopper.game = self.game;
+        hopper.player = self.player;
         
         dispatch_queue_t background_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         
