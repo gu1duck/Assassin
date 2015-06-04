@@ -105,6 +105,8 @@
                 self.storedDate = fetchedGame.updatedAt;
             }
         } else {
+            [self.updateTimer invalidate];
+            self.updateTimer = nil;
             UITabBarController* tabController = [[UIStoryboard storyboardWithName:@"GameInProgress" bundle:nil] instantiateInitialViewController];
             UINavigationController* navController = [tabController.viewControllers firstObject];
             GamestateViewController* gameState = [navController.viewControllers firstObject];
