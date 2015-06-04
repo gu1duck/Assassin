@@ -7,6 +7,7 @@
 //
 
 #import "TargetViewController.h"
+#import "Player.h"
 
 @interface TargetViewController ()
 
@@ -16,9 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
-}
+    }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -28,6 +27,15 @@
 -(void)viewWillAppear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
+//    if (self.player.target.dead){
+//        [self.player.target.deadPhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
+//            self.targetImageView.image = [UIImage imageWithData:imageData];
+//        }];
+//    } else {
+//        [self.player.target.alivePhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
+//            self.targetImageView.image = [UIImage imageWithData:imageData];
+//        }];
+//    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -69,7 +77,20 @@
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    self.targetImageView.image =[self applyRedFilter:info[UIImagePickerControllerEditedImage]];
+    UIImage *image = [self applyRedFilter:info[UIImagePickerControllerEditedImage]];
+//    self.targetImageView.image = image;
+    
+    NSData* deadPhotoJPG = UIImageJPEGRepresentation(image, 1.0);
+    PFFile* deadPhoto = [PFFile fileWithName:@"dead.jpeg" data:deadPhotoJPG];
+    [deadPhoto saveInBackgroundWithBlock:^(BOOL success, NSError* error){
+        self.player.target.deadPhoto = deadPhoto;
+        [self.player.target saveInBackground];
+        self.targetImageView.image = image;
+    }];
+    
+    
+
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
