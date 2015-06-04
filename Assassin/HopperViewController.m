@@ -88,21 +88,34 @@
   //  [gameData whereKey:@"updatedAt" notEqualTo:self.game.updatedAt];
     [gameData findObjectsInBackgroundWithBlock:^(NSArray *results, NSError* error){
         Game *fetchedGame = [results firstObject];
-        
-        if ( [self.storedDate isEqualToDate:fetchedGame.updatedAt] ) {
-            return;
-        }
-        
-        else
-        {
-            PFQuery *playersInGame = [[PFQuery alloc] initWithClassName:[Player parseClassName]];
-            [playersInGame whereKey:@"game" equalTo:self.game];
-            [playersInGame findObjectsInBackgroundWithBlock:^(NSArray* results, NSError* error){
-                self.players = results;
-                [self.collectionView reloadData];
-                [self showHostUI];
-            }];
-            self.storedDate = fetchedGame.updatedAt;
+        if (fetchedGame.joinable){
+            if ( [self.storedDate isEqualToDate:fetchedGame.updatedAt] ) {
+                return;
+            }
+            
+            else
+            {
+                PFQuery *playersInGame = [[PFQuery alloc] initWithClassName:[Player parseClassName]];
+                [playersInGame whereKey:@"game" equalTo:self.game];
+                [playersInGame findObjectsInBackgroundWithBlock:^(NSArray* results, NSError* error){
+                    self.players = results;
+                    [self.collectionView reloadData];
+                    [self showHostUI];
+                }];
+                self.storedDate = fetchedGame.updatedAt;
+            }
+        } else {
+            UITabBarController* tabController = [[UIStoryboard storyboardWithName:@"GameInProgress" bundle:nil] instantiateInitialViewController];
+            UINavigationController* navController = [tabController.viewControllers firstObject];
+            GamestateViewController* gameState = [navController.viewControllers firstObject];
+            gameState.player = self.player;
+            gameState.game = self.game;
+            
+            UINavigationController* targetNavController = tabController.viewControllers[1];
+            TargetViewController* target = [targetNavController.viewControllers firstObject];
+            target.player = self.player;
+            
+            [self showViewController:tabController sender:self];
         }
     }];
 }
