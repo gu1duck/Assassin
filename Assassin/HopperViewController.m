@@ -125,7 +125,7 @@
         self.game.name = self.gameTitleTextField.text;
     }
     
-    //self.game.joinable = NO;
+    self.game.joinable = NO;
     [self.game saveInBackground];
     
     UITabBarController* tabController = [[UIStoryboard storyboardWithName:@"GameInProgress" bundle:nil] instantiateInitialViewController];
