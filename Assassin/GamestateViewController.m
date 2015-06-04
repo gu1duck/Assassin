@@ -91,7 +91,9 @@
     cell.playerNameLabel.text = aPlayer.name;
     
     if (aPlayer.deadPhoto) {
-        cell.playerImageView.image = [aPlayer downloadDeadPhoto];
+        [aPlayer.deadPhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
+            cell.playerImageView.image = [UIImage imageWithData:imageData];
+        }];
     }
     else
     {

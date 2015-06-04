@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E26a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZLv-mf-P90">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZLv-mf-P90">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -134,7 +134,7 @@
                                     <constraint firstAttribute="width" constant="200" id="oVJ-LN-JhK"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="40"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -224,7 +224,7 @@
                                     <constraint firstAttribute="width" constant="200" id="4vL-2D-jLK"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="20"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -303,27 +303,32 @@
                                 <rect key="frame" x="0.0" y="20" width="600" height="75"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" restorationIdentifier="Line" translatesAutoresizingMaskIntoConstraints="NO" id="Kl9-Ds-VKD" userLabel="Line">
-                                        <rect key="frame" x="200" y="45" width="200" height="1"/>
+                                        <rect key="frame" x="200" y="31" width="200" height="1"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="lIt-6m-gcA"/>
                                         </constraints>
                                     </view>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Join Pin" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KMH-Vi-iLo" userLabel="Join Pin">
-                                        <rect key="frame" x="200" y="43" width="200" height="40"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Join Pin" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KMH-Vi-iLo" userLabel="Join Pin">
+                                        <rect key="frame" x="50" y="34" width="500" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="ZxS-yY-HIM"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="30"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="ZxS-yY-HIM"/>
+                                            </mask>
+                                        </variation>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Game Title" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q5s-Y1-Brw">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Game Title" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q5s-Y1-Brw">
                                         <rect key="frame" x="200" y="5" width="200" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="tVK-y4-qeR"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="40"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="26"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -332,6 +337,7 @@
                                     <constraint firstAttribute="centerX" secondItem="q5s-Y1-Brw" secondAttribute="centerX" id="4uk-kF-KPt"/>
                                     <constraint firstItem="q5s-Y1-Brw" firstAttribute="bottom" secondItem="Kl9-Ds-VKD" secondAttribute="bottom" constant="19.5" id="AmC-FX-2PV"/>
                                     <constraint firstAttribute="centerY" secondItem="q5s-Y1-Brw" secondAttribute="centerY" id="D1R-Bn-IYj"/>
+                                    <constraint firstAttribute="trailing" secondItem="KMH-Vi-iLo" secondAttribute="trailing" constant="50" id="Kb6-WG-Ltq"/>
                                     <constraint firstItem="KMH-Vi-iLo" firstAttribute="top" secondItem="Kl9-Ds-VKD" secondAttribute="bottom" constant="2" id="L8a-0E-9mK"/>
                                     <constraint firstItem="q5s-Y1-Brw" firstAttribute="trailing" secondItem="Kl9-Ds-VKD" secondAttribute="trailing" id="LLt-nM-dZJ"/>
                                     <constraint firstAttribute="centerX" secondItem="KMH-Vi-iLo" secondAttribute="centerX" id="NtX-DP-2Te"/>
@@ -339,16 +345,17 @@
                                     <constraint firstItem="KMH-Vi-iLo" firstAttribute="top" secondItem="TIk-It-bM6" secondAttribute="top" id="cjc-mx-kqs"/>
                                     <constraint firstAttribute="height" constant="75" id="eEQ-r0-3Nt"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="75" id="n26-xy-ham"/>
+                                    <constraint firstItem="KMH-Vi-iLo" firstAttribute="leading" secondItem="TIk-It-bM6" secondAttribute="leading" constant="50" id="o9v-2f-9qs"/>
                                     <constraint firstItem="q5s-Y1-Brw" firstAttribute="top" secondItem="Kl9-Ds-VKD" secondAttribute="top" constant="-19.5" id="twW-hI-YE9"/>
                                     <constraint firstItem="Kl9-Ds-VKD" firstAttribute="top" secondItem="q5s-Y1-Brw" secondAttribute="bottom" id="uiJ-QV-2YG"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="n26-xy-ham"/>
-                                        <exclude reference="cjc-mx-kqs"/>
                                         <exclude reference="AmC-FX-2PV"/>
                                         <exclude reference="D1R-Bn-IYj"/>
                                         <exclude reference="twW-hI-YE9"/>
+                                        <exclude reference="cjc-mx-kqs"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -381,11 +388,11 @@
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gjm-08-18S">
                                                     <rect key="frame" x="0.0" y="199" width="248" height="30"/>
-                                                    <color key="backgroundColor" white="1" alpha="0.34999999999999998" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.35000000000000003" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="QC0-44-R5R"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="17"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -601,7 +608,7 @@
                                     <constraint firstAttribute="width" constant="200" id="bFV-0Q-B3D"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="20"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
