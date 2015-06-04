@@ -1,5 +1,5 @@
 //
-//  UserViewController.h
+//  SwitchGameTableViewController.h
 //  Assassin
 //
 //  Created by Aaron Williams on 2015-06-04.
@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "Player.h"
-@interface UserViewController : UIViewController
 
-@property (nonatomic) Player *CurrentPlayer;
+@interface SwitchGameTableViewController : UITableViewController
 
+@property (nonatomic) Player *player;
 @end
