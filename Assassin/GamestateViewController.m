@@ -11,12 +11,16 @@
 #import "Game.h"
 #import "PlayerCollectionViewCell.h"
 #import "GameStateDetailViewController.h"
+#import "PhotoView.h"
 
-@interface GamestateViewController ()
+@interface GamestateViewController () <PhotoViewDelegate>
 
 @property (nonatomic) NSArray* players;
 @property (nonatomic) NSTimer* updateTimer;
 @property (nonatomic) NSDate* storedDate;
+@property (nonatomic) PhotoView* photoView;
+@property BOOL photoAlertVisible;
+
 
 @end
 
@@ -43,6 +47,23 @@
 -(void)viewWillAppear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
+    
+    
+    if (!self.player.knowsTarget && !self.photoAlertVisible){
+        dispatch_queue_t background_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        
+        dispatch_async(background_queue, ^{
+            [self.player.target fetchIfNeeded];
+            UIImage* targetPhoto = [self.player.target downloadAlivePhoto];
+            self.photoView = [[PhotoView alloc] initWithImage:targetPhoto label:self.player.target.name andCaption:@"Your new target"];
+            self.photoView.delegate = self;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.photoView showAlertView:self.view];
+                self.photoAlertVisible = YES;
+            });
+            
+        });
+    }
     
     self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:30
                                                         target:self
@@ -129,6 +150,23 @@
         }
     }];
     
+}
+
+-(void)handleTapGesture: (UITapGestureRecognizer*)tap{
+    if (tap.state == UIGestureRecognizerStateEnded){
+        [UIView animateWithDuration:0.2
+                              delay:0
+                            options:UIViewAnimationOptionCurveEaseInOut
+                         animations:^{
+                             self.photoView.background.alpha = 0.0;
+                         }
+                         completion:^(BOOL success){
+                             [self.photoView.background removeFromSuperview];
+                             self.player.knowsTarget = YES;
+                             [self.player saveInBackground];
+                             self.photoAlertVisible = NO;
+                         }];
+    }
 }
 
 

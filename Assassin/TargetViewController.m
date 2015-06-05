@@ -91,17 +91,24 @@
     PFFile* deadPhoto = [PFFile fileWithName:@"dead.jpeg" data:deadPhotoJPG];
     [deadPhoto saveInBackgroundWithBlock:^(BOOL success, NSError* error){
         [self.player.target fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
-            self.player.target.deadPhoto = deadPhoto;
-            self.player.target.dead = true;
-            [self.player.target saveInBackground];
-            [self.player.game saveInBackground];
-            self.targetImageView.image = image;
+            
+            dispatch_queue_t background_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+            dispatch_async(background_queue, ^{
+                self.player.target.deadPhoto = deadPhoto;
+                self.player.target.dead = true;
+                [self.player.target save];
+                
+                [self.player.target.target fetchIfNeeded];
+                self.player.target = self.player.target.target;
+                self.player.knowsTarget = NO;
+                [self.player save];
+                
+                [self.player.game save];
+                
+            });
         }];
     }];
-    
-    
-
-    
+    self.targetImageView.image = image;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
