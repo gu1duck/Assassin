@@ -21,6 +21,7 @@
 @dynamic host;
 @dynamic current;
 @dynamic target;
+@dynamic knowsTarget;
 
 + (void)load {
     [self registerSubclass];

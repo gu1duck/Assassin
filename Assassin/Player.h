@@ -20,6 +20,7 @@
 @property (nonatomic) BOOL dead;
 @property (nonatomic) BOOL host;
 @property (nonatomic) BOOL current;
+@property (nonatomic) BOOL knowsTarget;
 
 + (NSString *) parseClassName;
 - (void) setupWithGame: (Game*) game;
