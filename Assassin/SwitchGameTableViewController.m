@@ -29,6 +29,8 @@
         [self.tableView reloadData];
     }];
 
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,7 +55,24 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     Player *aPlayer = [self.playerArray objectAtIndex:indexPath.row];
-    cell.textLabel.text = aPlayer.name;
+    
+    PFQuery *gameQuery = [[PFQuery alloc]initWithClassName:[Player parseClassName]];
+    [gameQuery whereKey:@"game" equalTo:aPlayer.game];
+    [gameQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
+        Game *aGame = (Game *)object;
+        cell.textLabel.text = aGame.name;
+    }];
+    
+    if (aPlayer.dead) {
+        [aPlayer.deadPhoto getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error){
+            cell.imageView.image = [UIImage imageWithData:imageData];
+        }];
+    }
+    else{
+        [aPlayer.alivePhoto getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error){
+            cell.imageView.image = [UIImage imageWithData:imageData];
+        }];
+    }
     
     return cell;
 }
