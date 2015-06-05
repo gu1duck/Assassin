@@ -17,7 +17,6 @@
 
 @property (nonatomic) NSArray* players;
 @property (nonatomic) NSTimer* updateTimer;
-@property (nonatomic) NSDate* storedDate;
 @property (nonatomic) PhotoView* photoView;
 @property BOOL photoAlertVisible;
 
@@ -53,6 +52,7 @@
         dispatch_queue_t background_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         
         dispatch_async(background_queue, ^{
+            [self.player fetchIfNeeded];
             [self.player.target fetchIfNeeded];
             UIImage* targetPhoto = [self.player.target downloadAlivePhoto];
             self.photoView = [[PhotoView alloc] initWithImage:targetPhoto label:self.player.target.name andCaption:@"Your new target"];
@@ -65,7 +65,7 @@
         });
     }
     
-    self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:30
+    self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:10
                                                         target:self
                                                       selector:@selector(updateGameData)
                                                       userInfo:nil
