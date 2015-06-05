@@ -156,10 +156,12 @@
     [self.updateTimer invalidate];
     self.updateTimer = nil;
     
+    [self.game fetchIfNeededInBackground];
+    
     [self assignPlayerTargets];
     
     if ([self.gameTitleTextField.text isEqualToString:@""]) {
-        self.game.name = self.gameTitleTextField.placeholder;
+        self.game.name  = self.gameTitleTextField.placeholder;
     } else {
         self.game.name = self.gameTitleTextField.text;
     }

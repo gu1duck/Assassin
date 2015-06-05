@@ -7,25 +7,29 @@
 //
 
 #import "UserViewController.h"
-#import "SwitchGameTableViewController.h"
 #import "StartScreenVIewController.h"
+#import "GameStateViewController.h"
+#import "HopperViewController.h"
+#import "TargetViewController.h"
+#import "NewGameViewController.h"
+#import "JoinGameViewController.h"
 
-@interface UserViewController () <UIAlertViewDelegate, UITextFieldDelegate>
+@interface UserViewController () <UIAlertViewDelegate, UITextFieldDelegate, UITableViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *logoutHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *switchGameHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *signUpHeight;
-@property (weak, nonatomic) IBOutlet UIButton *signUpButton;
-@property (weak, nonatomic) IBOutlet UIView *emailLine;
-@property (weak, nonatomic) IBOutlet UIView *passwordLine;
 
+@property (weak, nonatomic) IBOutlet UIButton *signUpButton;
 @property (weak, nonatomic) IBOutlet UIButton *logoutButton;
-@property (weak, nonatomic) IBOutlet UIButton *switchButton;
 
 @property (nonatomic) PFUser *user;
+@property (nonatomic) NSMutableArray *playerArray;
+@property (nonatomic) PFObject *currentGame;
 
 @end
 
@@ -36,25 +40,33 @@
     if ([PFAnonymousUtils isLinkedWithUser:[PFUser currentUser]]) {
         self.logoutHeight.constant = 0;
         self.logoutButton.hidden = YES;
-        self.switchGameHeight.constant = 0;
-        self.switchButton.hidden = YES;
+        self.tableView.hidden = YES;
     }
     else
     {
         self.signUpHeight.constant = 0;
         self.signUpButton.hidden = YES;
-        self.passwordField.hidden = YES;
-        self.emailField.hidden = YES;
-        self.emailLine.hidden = YES;
-        self.passwordLine.hidden = YES;
+        
     }
     
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.playerArray = [[NSMutableArray alloc]init];
     
-    // Do any additional setup after loading the view.
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
+    
+    self.user = [PFUser currentUser];
+    
+    PFQuery *query = [[PFQuery alloc]initWithClassName:[Player parseClassName]];
+    [query whereKey:@"user" equalTo:self.user];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *results, NSError *error){
+        self.playerArray = [results mutableCopy];
+        [self.tableView reloadData];
+    }];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -106,19 +118,88 @@
  
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-     
-     if ([[segue identifier]isEqualToString:@"switchGame"] ) {
-         
-         UINavigationController *navController = (UINavigationController *)[segue destinationViewController];
-         SwitchGameTableViewController *switchController = [navController.viewControllers firstObject];
-         switchController.player = self.CurrentPlayer;
-     }
-     
-     
  
  }
 
+- (IBAction)newGame:(UIBarButtonItem *)sender {
+    NewGameViewController *newGame = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"newGame"];
+    [self.tabBarController showViewController:newGame sender:self];
+}
 
 
+- (IBAction)joinGame:(UIBarButtonItem *)sender {
+    JoinGameViewController *joinGame = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"joinGame"];
+    [self.tabBarController showViewController:joinGame sender:self];
+}
+
+
+#pragma mark - TableView
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Return the number of rows in the section.
+    return self.playerArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    [cell prepareForReuse];
+    cell.textLabel.text = nil;
+    cell.imageView.image = nil;
+    
+    Player *aPlayer = [self.playerArray objectAtIndex:indexPath.row];
+    [aPlayer.game fetchInBackgroundWithBlock:^(PFObject * game, NSError *error){
+        aPlayer.game = (Game *)game;
+        cell.textLabel.text = aPlayer.game.name;
+
+    }];
+
+    if (aPlayer.dead) {
+        [aPlayer.deadPhoto getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error){
+            cell.imageView.image = [UIImage imageWithData:imageData];
+        }];
+    }
+    else{
+        [aPlayer.alivePhoto getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error){
+            cell.imageView.image = [UIImage imageWithData:imageData];
+        }];
+    }
+    
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    Player *selectedPlayer = [self.playerArray objectAtIndex:indexPath.row];
+    [selectedPlayer.game fetchIfNeeded];
+    
+    
+    if (selectedPlayer.game.joinable) {
+        HopperViewController *hopperView = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"hopper"];
+        hopperView.player = selectedPlayer;
+        hopperView.game = selectedPlayer.game;
+        [self.tabBarController showViewController:hopperView sender:self];
+    }
+    else
+    {
+        UITabBarController* tabController = [[UIStoryboard storyboardWithName:@"GameInProgress" bundle:nil] instantiateInitialViewController];
+        UINavigationController* navController = [tabController.viewControllers firstObject];
+        GamestateViewController* gameState = [navController.viewControllers firstObject];
+        gameState.player = selectedPlayer;
+        gameState.game = selectedPlayer.game;
+        
+        UINavigationController *targetnav = tabController.viewControllers[1];
+        TargetViewController *targetView = [targetnav.viewControllers firstObject];
+        targetView.player = selectedPlayer;
+        
+        
+    [self.tabBarController showViewController:tabController sender:self];
+    }
+}
 
 @end
