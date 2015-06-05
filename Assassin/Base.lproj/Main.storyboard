@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E26a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZLv-mf-P90">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZLv-mf-P90">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -140,9 +140,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" alpha="0.25" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="AssassinImage" translatesAutoresizingMaskIntoConstraints="NO" id="gvk-hP-L5t">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CjQ-z4-hhz">
+                                <rect key="frame" x="0.0" y="375" width="600" height="75"/>
+                                <color key="backgroundColor" white="1" alpha="0.90000000000000002" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="PdQ-hz-Jt4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="15"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="P3b-sn-uHs" kind="presentation" modalTransitionStyle="coverVertical" id="Gwk-s3-sB8"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nBW-wh-5aQ">
                                 <rect key="frame" x="0.0" y="525" width="600" height="75"/>
-                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="bUd-T8-Vvp"/>
                                 </constraints>
@@ -157,7 +175,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a8D-r3-Juz">
                                 <rect key="frame" x="0.0" y="450" width="600" height="75"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="0.90000000000000002" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="kot-I1-7T0"/>
                                 </constraints>
@@ -176,38 +194,28 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CjQ-z4-hhz">
-                                <rect key="frame" x="0.0" y="375" width="600" height="75"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="75" id="PdQ-hz-Jt4"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="15"/>
-                                <state key="normal" title="Login">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="P3b-sn-uHs" kind="presentation" modalTransitionStyle="coverVertical" id="Gwk-s3-sB8"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="nBW-wh-5aQ" secondAttribute="trailing" id="8z8-i8-bUg"/>
                             <constraint firstItem="93I-v9-RL0" firstAttribute="top" secondItem="nBW-wh-5aQ" secondAttribute="bottom" id="A1c-Ni-jJf"/>
+                            <constraint firstItem="gvk-hP-L5t" firstAttribute="top" secondItem="bsY-cB-WGg" secondAttribute="topMargin" id="CMs-FR-QgO"/>
                             <constraint firstAttribute="trailing" secondItem="a8D-r3-Juz" secondAttribute="trailing" id="MfF-xr-klC"/>
                             <constraint firstItem="CjQ-z4-hhz" firstAttribute="leading" secondItem="bsY-cB-WGg" secondAttribute="leading" id="Oiz-9y-w2T"/>
                             <constraint firstItem="a8D-r3-Juz" firstAttribute="leading" secondItem="bsY-cB-WGg" secondAttribute="leading" id="TIw-40-FC6"/>
                             <constraint firstItem="nBW-wh-5aQ" firstAttribute="leading" secondItem="bsY-cB-WGg" secondAttribute="leading" id="YfN-hp-QV1"/>
                             <constraint firstItem="nBW-wh-5aQ" firstAttribute="top" secondItem="a8D-r3-Juz" secondAttribute="bottom" id="ZIQ-Ho-P7a"/>
+                            <constraint firstItem="93I-v9-RL0" firstAttribute="top" secondItem="gvk-hP-L5t" secondAttribute="bottom" id="hSi-kZ-9xI"/>
                             <constraint firstItem="qfd-jE-K9G" firstAttribute="centerY" secondItem="bsY-cB-WGg" secondAttribute="centerY" multiplier="3/4" id="iqR-8v-fRN"/>
                             <constraint firstAttribute="centerX" secondItem="qfd-jE-K9G" secondAttribute="centerX" id="n7f-VB-3OJ"/>
                             <constraint firstAttribute="trailing" secondItem="CjQ-z4-hhz" secondAttribute="trailing" id="uPK-la-8Ae"/>
+                            <constraint firstAttribute="centerX" secondItem="gvk-hP-L5t" secondAttribute="centerX" id="wkv-Ru-a9W"/>
                             <constraint firstItem="a8D-r3-Juz" firstAttribute="top" secondItem="CjQ-z4-hhz" secondAttribute="bottom" id="yrz-T7-R3s"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="2cn-76-TTg"/>
                     <connections>
+                        <outlet property="buttonsBottomMargin" destination="hSi-kZ-9xI" id="kjx-Oq-HSH"/>
                         <outlet property="loginButton" destination="CjQ-z4-hhz" id="Z1y-jO-SSO"/>
                     </connections>
                 </viewController>
@@ -773,6 +781,9 @@
             <point key="canvasLocation" x="2632" y="-863"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="AssassinImage" width="755" height="800"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="FAC-Su-Qfm"/>
     </inferredMetricsTieBreakers>
