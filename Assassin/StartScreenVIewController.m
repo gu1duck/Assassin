@@ -28,8 +28,8 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    PFUser *user = [PFUser currentUser];
-    if (!user.username) {
+   
+    if ([PFAnonymousUtils isLinkedWithUser:[PFUser currentUser]]) {
         return;
     }
     else
