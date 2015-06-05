@@ -207,6 +207,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="2cn-76-TTg"/>
+                    <connections>
+                        <outlet property="loginButton" destination="CjQ-z4-hhz" id="Z1y-jO-SSO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I2O-QX-t1i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

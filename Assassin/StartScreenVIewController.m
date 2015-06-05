@@ -7,17 +7,18 @@
 //
 
 #import "StartScreenVIewController.h"
+#import <Parse/Parse.h>
 
 @interface StartScreenVIewController ()
 
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @end
 
 @implementation StartScreenVIewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
+    }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -25,6 +26,16 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    PFUser *user = [PFUser currentUser];
+    if (!user.username) {
+        return;
+    }
+    else
+    {
+        self.loginButton.hidden = YES;
+    }
+
+    
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
 }
