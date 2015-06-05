@@ -15,4 +15,6 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property Player* player;
 @property Game* game;
+@property (nonatomic) NSDate* storedDate;
+
 @end

@@ -124,9 +124,10 @@
                 [playersInGame findObjectsInBackgroundWithBlock:^(NSArray* results, NSError* error){
                     self.players = results;
                     [self.collectionView reloadData];
-                    
+                    [self assignPlayerTargets];
                 }];
                 self.storedDate = fetchedGame.updatedAt;
+                
             }
         } else {
             [self.updateTimer invalidate];
@@ -157,8 +158,6 @@
     self.updateTimer = nil;
     
     [self.game fetchIfNeededInBackground];
-    
-    [self assignPlayerTargets];
     
     if ([self.gameTitleTextField.text isEqualToString:@""]) {
         self.game.name  = self.gameTitleTextField.placeholder;

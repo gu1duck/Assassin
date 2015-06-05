@@ -8,6 +8,7 @@
 
 #import "TargetViewController.h"
 #import "Player.h"
+#import "GamestateViewController.h"
 
 @interface TargetViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *assassinateButton;
@@ -103,7 +104,11 @@
                 self.player.knowsTarget = NO;
                 [self.player save];
                 
-                [self.player.game save];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UINavigationController* navController = [self.navigationController.tabBarController.viewControllers firstObject];
+                    GamestateViewController* gameState = [navController.viewControllers firstObject];
+                    gameState.storedDate = nil;
+                });
                 
             });
         }];
