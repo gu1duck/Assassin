@@ -440,7 +440,20 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="kRB-Wt-dHx"/>
+                    <navigationItem key="navigationItem" id="kRB-Wt-dHx">
+                        <barButtonItem key="leftBarButtonItem" title="Join Game" id="I3e-kd-9yq">
+                            <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="joinGame:" destination="g0K-7E-Tff" id="EbV-cj-ard"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="New Game" style="plain" id="y5M-iH-2Hs">
+                            <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="newGame:" destination="g0K-7E-Tff" id="w6z-ij-a44"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="emailField" destination="BBg-Jp-lsv" id="sqv-hu-GXW"/>
                         <outlet property="logoutButton" destination="xeN-Gc-Mud" id="WZe-zz-OMC"/>

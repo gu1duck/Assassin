@@ -11,6 +11,8 @@
 #import "GameStateViewController.h"
 #import "HopperViewController.h"
 #import "TargetViewController.h"
+#import "NewGameViewController.h"
+#import "JoinGameViewController.h"
 
 @interface UserViewController () <UIAlertViewDelegate, UITextFieldDelegate, UITableViewDelegate>
 
@@ -116,11 +118,20 @@
  
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-     
-     
-     
  
  }
+
+- (IBAction)newGame:(UIBarButtonItem *)sender {
+    NewGameViewController *newGame = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"newGame"];
+    [self.tabBarController showViewController:newGame sender:self];
+}
+
+
+- (IBAction)joinGame:(UIBarButtonItem *)sender {
+    JoinGameViewController *joinGame = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"joinGame"];
+    [self.tabBarController showViewController:joinGame sender:self];
+}
+
 
 #pragma mark - TableView
 
@@ -136,16 +147,17 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    [cell prepareForReuse];
+    cell.textLabel.text = nil;
+    cell.imageView.image = nil;
     
     Player *aPlayer = [self.playerArray objectAtIndex:indexPath.row];
-    
-    PFQuery *gameQuery = [[PFQuery alloc]initWithClassName:[Player parseClassName]];
-    [gameQuery whereKey:@"game" equalTo:aPlayer.game];
-    [gameQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
-        Game *aGame = (Game *)object;
-        cell.textLabel.text = aGame.name;
+    [aPlayer.game fetchInBackgroundWithBlock:^(PFObject * game, NSError *error){
+        aPlayer.game = (Game *)game;
+        cell.textLabel.text = aPlayer.game.name;
+
     }];
-    
+
     if (aPlayer.dead) {
         [aPlayer.deadPhoto getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error){
             cell.imageView.image = [UIImage imageWithData:imageData];
@@ -189,6 +201,5 @@
     [self.tabBarController showViewController:tabController sender:self];
     }
 }
-
 
 @end
