@@ -8,6 +8,7 @@
 
 #import "UserViewController.h"
 #import "SwitchGameTableViewController.h"
+#import "StartScreenVIewController.h"
 
 @interface UserViewController () <UIAlertViewDelegate, UITextFieldDelegate>
 
@@ -95,6 +96,8 @@
 - (IBAction)logoutButtonPressed:(UIButton *)sender {
     [PFUser logOut];
     
+    StartScreenVIewController *start = [[ UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
+    [self.tabBarController showViewController:start sender:self];
 }
 
 
@@ -103,11 +106,19 @@
  
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-     UINavigationController *navController = (UINavigationController *)[segue destinationViewController];
-     SwitchGameTableViewController *switchController = [navController.viewControllers firstObject];
-     switchController.player = self.CurrentPlayer;
+     
+     if ([[segue identifier]isEqualToString:@"switchGame"] ) {
+         
+         UINavigationController *navController = (UINavigationController *)[segue destinationViewController];
+         SwitchGameTableViewController *switchController = [navController.viewControllers firstObject];
+         switchController.player = self.CurrentPlayer;
+     }
+     
+     
  
  }
+
+
 
 
 @end
