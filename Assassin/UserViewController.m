@@ -12,20 +12,22 @@
 
 @interface UserViewController () <UIAlertViewDelegate, UITextFieldDelegate>
 
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *logoutHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *switchGameHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *signUpHeight;
-@property (weak, nonatomic) IBOutlet UIButton *signUpButton;
+
 @property (weak, nonatomic) IBOutlet UIView *emailLine;
 @property (weak, nonatomic) IBOutlet UIView *passwordLine;
 
+@property (weak, nonatomic) IBOutlet UIButton *signUpButton;
 @property (weak, nonatomic) IBOutlet UIButton *logoutButton;
-@property (weak, nonatomic) IBOutlet UIButton *switchButton;
 
 @property (nonatomic) PFUser *user;
+@property (nonatomic) NSMutableArray *playerArray;
 
 @end
 
@@ -36,8 +38,7 @@
     if ([PFAnonymousUtils isLinkedWithUser:[PFUser currentUser]]) {
         self.logoutHeight.constant = 0;
         self.logoutButton.hidden = YES;
-        self.switchGameHeight.constant = 0;
-        self.switchButton.hidden = YES;
+        self.tableView.hidden = YES;
     }
     else
     {
@@ -53,8 +54,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.playerArray = [[NSMutableArray alloc]init];
     
-    // Do any additional setup after loading the view.
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
+    
+    self.user = [PFUser currentUser];
+    
+    PFQuery *query = [[PFQuery alloc]initWithClassName:[Player parseClassName]];
+    [query whereKey:@"user" equalTo:self.user];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *results, NSError *error){
+        self.playerArray = [results mutableCopy];
+        [self.tableView reloadData];
+    }];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -118,6 +131,43 @@
  
  }
 
+#pragma mark - TableView
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Return the number of rows in the section.
+    return self.playerArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    
+    Player *aPlayer = [self.playerArray objectAtIndex:indexPath.row];
+    
+    PFQuery *gameQuery = [[PFQuery alloc]initWithClassName:[Player parseClassName]];
+    [gameQuery whereKey:@"game" equalTo:aPlayer.game];
+    [gameQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
+        Game *aGame = (Game *)object;
+        cell.textLabel.text = aGame.name;
+    }];
+    
+    if (aPlayer.dead) {
+        [aPlayer.deadPhoto getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error){
+            cell.imageView.image = [UIImage imageWithData:imageData];
+        }];
+    }
+    else{
+        [aPlayer.alivePhoto getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error){
+            cell.imageView.image = [UIImage imageWithData:imageData];
+        }];
+    }
+    
+    return cell;
+}
 
 
 
