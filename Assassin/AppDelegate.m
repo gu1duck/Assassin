@@ -12,6 +12,7 @@
 #import "HopperViewController.h"
 #import "GamestateViewController.h"
 #import "TargetViewController.h"
+#import "UserViewController.h"
 
 
 @interface AppDelegate ()
@@ -72,6 +73,11 @@
             UINavigationController* targetNavController = tabController.viewControllers[1];
             TargetViewController* target = [targetNavController.viewControllers firstObject];
             target.player = player;
+            
+            UINavigationController* userNavController = tabController.viewControllers[2];
+            UserViewController* userView = [userNavController.viewControllers firstObject];
+            userView.CurrentPlayer = player;
+            
             self.window.rootViewController = tabController;
         }
     }

@@ -32,7 +32,7 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     
-    if (!self.CurrentPlayer.user.username) {
+    if ([PFAnonymousUtils isLinkedWithUser:[PFUser currentUser]]) {
         self.logoutHeight.constant = 0;
         self.logoutButton.hidden = YES;
         self.switchGameHeight.constant = 0;
