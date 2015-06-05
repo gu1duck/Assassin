@@ -21,11 +21,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *logoutHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *signUpHeight;
 
 @property (weak, nonatomic) IBOutlet UIButton *signUpButton;
-@property (weak, nonatomic) IBOutlet UIButton *logoutButton;
 
 @property (nonatomic) PFUser *user;
 @property (nonatomic) NSMutableArray *playerArray;
@@ -38,9 +36,7 @@
 -(void)viewDidAppear:(BOOL)animated {
     
     if ([PFAnonymousUtils isLinkedWithUser:[PFUser currentUser]]) {
-        self.logoutHeight.constant = 0;
-        self.logoutButton.hidden = YES;
-        self.tableView.hidden = YES;
+               self.tableView.hidden = YES;
     }
     else
     {
@@ -66,7 +62,7 @@
         self.playerArray = [results mutableCopy];
         [self.tableView reloadData];
     }];
-
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -105,34 +101,28 @@
 }
 
 
-- (IBAction)logoutButtonPressed:(UIButton *)sender {
-    [PFUser logOut];
+
+
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    StartScreenVIewController *start = [[ UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
-    [self.tabBarController showViewController:start sender:self];
 }
-
-
-
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- 
- }
 
 - (IBAction)newGame:(UIBarButtonItem *)sender {
     NewGameViewController *newGame = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"newGame"];
+
     [self.tabBarController showViewController:newGame sender:self];
 }
 
 
 - (IBAction)joinGame:(UIBarButtonItem *)sender {
     JoinGameViewController *joinGame = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"joinGame"];
-    [self.tabBarController showViewController:joinGame sender:self];
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:joinGame];
+    [self.tabBarController presentViewController:nav animated:YES completion:nil];
 }
-
-
 #pragma mark - TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -155,20 +145,28 @@
     [aPlayer.game fetchInBackgroundWithBlock:^(PFObject * game, NSError *error){
         aPlayer.game = (Game *)game;
         cell.textLabel.text = aPlayer.game.name;
-
-    }];
+            }];
+    
+    
+    cell.imageView.layer.masksToBounds = YES;
 
     if (aPlayer.dead) {
         [aPlayer.deadPhoto getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error){
             cell.imageView.image = [UIImage imageWithData:imageData];
+            
+
         }];
     }
     else{
         [aPlayer.alivePhoto getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error){
             cell.imageView.image = [UIImage imageWithData:imageData];
+        
         }];
+        
     }
     
+    cell.imageView.layer.cornerRadius = 37.5;
+
     return cell;
 }
 
@@ -198,7 +196,7 @@
         targetView.player = selectedPlayer;
         
         
-    [self.tabBarController showViewController:tabController sender:self];
+        [self.tabBarController showViewController:tabController sender:self];
     }
 }
 
