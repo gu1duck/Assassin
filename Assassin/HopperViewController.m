@@ -10,6 +10,7 @@
 #import "PlayerCollectionViewCell.h"
 #import "GamestateViewController.h"
 #import "TargetViewController.h"
+#import "UserViewController.h"
 
 @interface HopperViewController () <UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -175,6 +176,11 @@
     UINavigationController* targetNavController = tabController.viewControllers[1];
     TargetViewController* target = [targetNavController.viewControllers firstObject];
     target.player = self.player;
+    
+    
+    UINavigationController* userNavController = tabController.viewControllers[2];
+    UserViewController* userView = [userNavController.viewControllers firstObject];
+    userView.CurrentPlayer = self.player;
     
     [self showViewController:tabController sender:self];
     
