@@ -117,7 +117,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Jer" translatesAutoresizingMaskIntoConstraints="NO" id="NRs-ly-p2j">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NRs-ly-p2j">
                                 <rect key="frame" x="75" y="31" width="450" height="450"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="NRs-ly-p2j" secondAttribute="height" multiplier="1:1" id="xPz-eE-GAM"/>
@@ -443,11 +443,9 @@
                     <navigationItem key="navigationItem" id="kRB-Wt-dHx"/>
                     <connections>
                         <outlet property="emailField" destination="BBg-Jp-lsv" id="sqv-hu-GXW"/>
-                        <outlet property="emailLine" destination="vZq-eM-g8j" id="gnt-2T-YR1"/>
                         <outlet property="logoutButton" destination="xeN-Gc-Mud" id="WZe-zz-OMC"/>
                         <outlet property="logoutHeight" destination="fck-Wx-fpR" id="H17-BL-3ui"/>
                         <outlet property="passwordField" destination="eyo-5Q-i54" id="CQL-rl-dLb"/>
-                        <outlet property="passwordLine" destination="xvX-z3-jhX" id="dbT-8b-5h7"/>
                         <outlet property="signUpButton" destination="QDU-vG-K5J" id="KoW-y4-Rgp"/>
                         <outlet property="signUpHeight" destination="KQ9-i0-hH9" id="mrU-fA-EAI"/>
                         <outlet property="tableView" destination="l6y-bx-i10" id="Tau-Nb-zBP"/>
@@ -457,33 +455,6 @@
                 <exit id="3BV-cZ-jXK" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1259" y="1820"/>
-        </scene>
-        <!--Switch Game Table View Controller-->
-        <scene sceneID="Zvp-A7-ZJD">
-            <objects>
-                <tableViewController id="Itz-uF-ENf" customClass="SwitchGameTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="x4Y-Qs-nKm">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="ajS-Zg-EGp">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ajS-Zg-EGp" id="43o-wB-Sho">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="Itz-uF-ENf" id="8E4-WZ-WEe"/>
-                            <outlet property="delegate" destination="Itz-uF-ENf" id="Tiu-uV-1eT"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="S0m-WD-XUC"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tys-ka-AXh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2780" y="1820"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Gjd-cg-XBw">
@@ -505,29 +476,10 @@
             </objects>
             <point key="canvasLocation" x="-365" y="1066"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="v9K-lo-5RK">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="awc-mj-pBZ" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ss0-tr-YvR">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Itz-uF-ENf" kind="relationship" relationship="rootViewController" id="Ewh-a7-Fda"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ghf-o2-VtB" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1968" y="1820"/>
-        </scene>
     </scenes>
     <resources>
         <image name="Camera Filled-100" width="50" height="50"/>
         <image name="Define Location-50" width="25" height="25"/>
-        <image name="Jer" width="250" height="250"/>
         <image name="Opera Glasses-50" width="25" height="25"/>
         <image name="User Female Circle-50" width="25" height="25"/>
     </resources>

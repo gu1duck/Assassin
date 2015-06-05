@@ -7,10 +7,12 @@
 //
 
 #import "UserViewController.h"
-#import "SwitchGameTableViewController.h"
 #import "StartScreenVIewController.h"
+#import "GameStateViewController.h"
+#import "HopperViewController.h"
+#import "TargetViewController.h"
 
-@interface UserViewController () <UIAlertViewDelegate, UITextFieldDelegate>
+@interface UserViewController () <UIAlertViewDelegate, UITextFieldDelegate, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -20,14 +22,12 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *logoutHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *signUpHeight;
 
-@property (weak, nonatomic) IBOutlet UIView *emailLine;
-@property (weak, nonatomic) IBOutlet UIView *passwordLine;
-
 @property (weak, nonatomic) IBOutlet UIButton *signUpButton;
 @property (weak, nonatomic) IBOutlet UIButton *logoutButton;
 
 @property (nonatomic) PFUser *user;
 @property (nonatomic) NSMutableArray *playerArray;
+@property (nonatomic) PFObject *currentGame;
 
 @end
 
@@ -44,10 +44,7 @@
     {
         self.signUpHeight.constant = 0;
         self.signUpButton.hidden = YES;
-        self.passwordField.hidden = YES;
-        self.emailField.hidden = YES;
-        self.emailLine.hidden = YES;
-        self.passwordLine.hidden = YES;
+        
     }
     
 }
@@ -120,12 +117,6 @@
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
      
-     if ([[segue identifier]isEqualToString:@"switchGame"] ) {
-         
-         UINavigationController *navController = (UINavigationController *)[segue destinationViewController];
-         SwitchGameTableViewController *switchController = [navController.viewControllers firstObject];
-         switchController.player = self.CurrentPlayer;
-     }
      
      
  
@@ -169,6 +160,33 @@
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    Player *selectedPlayer = [self.playerArray objectAtIndex:indexPath.row];
+    [selectedPlayer.game fetchIfNeeded];
+    
+    
+    if (selectedPlayer.game.joinable) {
+        UINavigationController *hopperNav = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"hopper"];
+        HopperViewController *hopperView = [hopperNav.viewControllers firstObject];
+        [self.tabBarController showViewController:hopperView sender:self];
+    }
+    else
+    {
+        UITabBarController* tabController = [[UIStoryboard storyboardWithName:@"GameInProgress" bundle:nil] instantiateInitialViewController];
+        UINavigationController* navController = [tabController.viewControllers firstObject];
+        GamestateViewController* gameState = [navController.viewControllers firstObject];
+        gameState.player = selectedPlayer;
+        gameState.game = selectedPlayer.game;
+        
+        UINavigationController *targetnav = tabController.viewControllers[1];
+        TargetViewController *targetView = [targetnav.viewControllers firstObject];
+        targetView.player = selectedPlayer;
+        
+    [self.tabBarController showViewController:tabController sender:self];
+    }
+}
 
 
 @end

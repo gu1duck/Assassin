@@ -41,7 +41,6 @@
 		3FF0D5831B1D01F900E92D9E /* StartScreenVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FF0D5821B1D01F900E92D9E /* StartScreenVIewController.m */; };
 		C86339D51B1E40CE00C5CB4C /* PlayerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C86339D41B1E40CE00C5CB4C /* PlayerCollectionViewCell.m */; };
 		C8D4B3B41B20D0D600944BB7 /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D4B3B31B20D0D600944BB7 /* UserViewController.m */; };
-		C8D4B3B71B20FD9200944BB7 /* SwitchGameTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D4B3B61B20FD9200944BB7 /* SwitchGameTableViewController.m */; };
 		C8E49BC91B1FC3BD002B5B10 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E49BC81B1FC3BD002B5B10 /* LoginViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -109,8 +108,6 @@
 		C86339D41B1E40CE00C5CB4C /* PlayerCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerCollectionViewCell.m; sourceTree = "<group>"; };
 		C8D4B3B21B20D0D600944BB7 /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
 		C8D4B3B31B20D0D600944BB7 /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewController.m; sourceTree = "<group>"; };
-		C8D4B3B51B20FD9200944BB7 /* SwitchGameTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchGameTableViewController.h; sourceTree = "<group>"; };
-		C8D4B3B61B20FD9200944BB7 /* SwitchGameTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwitchGameTableViewController.m; sourceTree = "<group>"; };
 		C8E49BC71B1FC3BD002B5B10 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		C8E49BC81B1FC3BD002B5B10 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -171,8 +168,6 @@
 				C8E49BC81B1FC3BD002B5B10 /* LoginViewController.m */,
 				C8D4B3B21B20D0D600944BB7 /* UserViewController.h */,
 				C8D4B3B31B20D0D600944BB7 /* UserViewController.m */,
-				C8D4B3B51B20FD9200944BB7 /* SwitchGameTableViewController.h */,
-				C8D4B3B61B20FD9200944BB7 /* SwitchGameTableViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -379,7 +374,6 @@
 				3F9AA2441B1E5201009F792E /* JoinGameInfoViewController.m in Sources */,
 				3FADB3F81B1C1CF9008195E5 /* AppDelegate.m in Sources */,
 				3FADB4381B1C1EF4008195E5 /* TestViewController.m in Sources */,
-				C8D4B3B71B20FD9200944BB7 /* SwitchGameTableViewController.m in Sources */,
 				C86339D51B1E40CE00C5CB4C /* PlayerCollectionViewCell.m in Sources */,
 				C8D4B3B41B20D0D600944BB7 /* UserViewController.m in Sources */,
 				3FF0D5831B1D01F900E92D9E /* StartScreenVIewController.m in Sources */,
