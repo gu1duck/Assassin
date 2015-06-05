@@ -168,8 +168,9 @@
     
     
     if (selectedPlayer.game.joinable) {
-        UINavigationController *hopperNav = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"hopper"];
-        HopperViewController *hopperView = [hopperNav.viewControllers firstObject];
+        HopperViewController *hopperView = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"hopper"];
+        hopperView.player = selectedPlayer;
+        hopperView.game = selectedPlayer.game;
         [self.tabBarController showViewController:hopperView sender:self];
     }
     else
@@ -183,6 +184,7 @@
         UINavigationController *targetnav = tabController.viewControllers[1];
         TargetViewController *targetView = [targetnav.viewControllers firstObject];
         targetView.player = selectedPlayer;
+        
         
     [self.tabBarController showViewController:tabController sender:self];
     }
