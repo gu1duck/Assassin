@@ -12,6 +12,7 @@
 
 @interface TargetViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *assassinateButton;
+@property (nonatomic) UIImage *assassinationPhoto;
 
 @end
 
@@ -21,19 +22,6 @@
     [super viewDidLoad];
     self.assassinateButton.layer.cornerRadius = self.assassinateButton.frame.size.width/2;
     self.assassinateButton.layer.masksToBounds = YES;
-    [self.player.target fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
-        if (self.player.target.dead){
-            [self.player.target.deadPhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
-                self.targetImageView.image = [UIImage imageWithData:imageData];
-            }];
-        } else {
-            [self.player.target.alivePhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
-                self.targetImageView.image = [UIImage imageWithData:imageData];
-                
-            }];
-        }
-    }];
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,12 +32,37 @@
 -(void)viewWillAppear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
+    
+    if (self.assassinationPhoto) {
+        self.targetImageView.image = self.assassinationPhoto;
+    }
+    else {
+        
+    
+    [self.player.target fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
+        if (self.player.target.dead){
+            [self.player.target.deadPhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
+                self.targetImageView.image = [UIImage imageWithData:imageData];
+            }];
+        } else {
+            [self.player.target.alivePhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
+                self.targetImageView.image = [UIImage imageWithData:imageData];
+                
+            }];
+            
+        }
+    }];
+    }
     }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     [super viewWillDisappear:animated];
+    self.assassinationPhoto = nil;
 }
+
+
+
 
 
 - (IBAction)assassinateButtonPressed:(id)sender {
@@ -86,7 +99,7 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *image = [self applyRedFilter:info[UIImagePickerControllerEditedImage]];
-//    self.targetImageView.image = image;
+    self.assassinationPhoto = image;
     
     NSData* deadPhotoJPG = UIImageJPEGRepresentation(image, 1.0);
     PFFile* deadPhoto = [PFFile fileWithName:@"dead.jpeg" data:deadPhotoJPG];
@@ -105,6 +118,7 @@
                 [self.player save];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    
                     UINavigationController* navController = [self.navigationController.tabBarController.viewControllers firstObject];
                     GamestateViewController* gameState = [navController.viewControllers firstObject];
                     gameState.storedDate = nil;
@@ -113,7 +127,7 @@
             });
         }];
     }];
-    self.targetImageView.image = image;
+    //self.targetImageView.image = image;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
