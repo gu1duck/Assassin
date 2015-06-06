@@ -30,30 +30,37 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
-    [super viewWillAppear:animated];
-    
-    if (self.assassinationPhoto) {
-        self.targetImageView.image = self.assassinationPhoto;
-    }
-    else {
+    if (self.player.dead){
         
-    
-    [self.player.target fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
-        if (self.player.target.dead){
-            [self.player.target.deadPhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
-                self.targetImageView.image = [UIImage imageWithData:imageData];
-            }];
-        } else {
-            [self.player.target.alivePhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
-                self.targetImageView.image = [UIImage imageWithData:imageData];
-                
-            }];
-            
+        [self showDeadUI];
+        
+    } else {
+        
+        [self.navigationController setNavigationBarHidden:YES animated:animated];
+        [super viewWillAppear:animated];
+        
+        if (self.assassinationPhoto) {
+            self.targetImageView.image = self.assassinationPhoto;
         }
-    }];
+        else {
+            
+            
+            [self.player.target fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
+                if (self.player.target.dead){
+                    [self.player.target.deadPhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
+                        self.targetImageView.image = [UIImage imageWithData:imageData];
+                    }];
+                } else {
+                    [self.player.target.alivePhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
+                        self.targetImageView.image = [UIImage imageWithData:imageData];
+                        
+                    }];
+                    
+                }
+            }];
+        }
     }
-    }
+}
 
 -(void)viewWillDisappear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:NO animated:animated];
@@ -99,35 +106,47 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *image = [self applyRedFilter:info[UIImagePickerControllerEditedImage]];
-    self.assassinationPhoto = image;
     
-    NSData* deadPhotoJPG = UIImageJPEGRepresentation(image, 1.0);
-    PFFile* deadPhoto = [PFFile fileWithName:@"dead.jpeg" data:deadPhotoJPG];
-    [deadPhoto saveInBackgroundWithBlock:^(BOOL success, NSError* error){
-        [self.player.target fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
-            
-            dispatch_queue_t background_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-            dispatch_async(background_queue, ^{
-                self.player.target.deadPhoto = deadPhoto;
-                self.player.target.dead = true;
-                [self.player.target save];
-                
-                [self.player.target.target fetchIfNeeded];
-                self.player.target = self.player.target.target;
-                self.player.knowsTarget = NO;
-                [self.player save];
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    UINavigationController* navController = [self.navigationController.tabBarController.viewControllers firstObject];
-                    GamestateViewController* gameState = [navController.viewControllers firstObject];
-                    gameState.storedDate = nil;
+    /* We should do a final check here to make sure the player wasn't killed while they were in the photo picker.
+     Ideally, we can minimize the chances of things getting messed up in shootouts between the last two players.*/
+    dispatch_queue_t background_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+    [self.player fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
+        if (self.player.dead){
+            [self showDeadUI];
+        } else {
+            //Mark target as dead before doing anything else
+            [self.player.target fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error){
+                dispatch_async(background_queue, ^{
+                    self.player.target.dead = true;
+                    [self.player.target save];
                 });
                 
-            });
-        }];
+                self.assassinationPhoto = image;
+                NSData* deadPhotoJPG = UIImageJPEGRepresentation(image, 1.0);
+                PFFile* deadPhoto = [PFFile fileWithName:@"dead.jpeg" data:deadPhotoJPG];
+                [deadPhoto saveInBackgroundWithBlock:^(BOOL success, NSError* error){
+                    
+                    dispatch_async(background_queue, ^{
+                        self.player.target.deadPhoto = deadPhoto;
+                        [self.player.target save];
+                        
+                        [self.player.target.target fetchIfNeeded];
+                        self.player.target = self.player.target.target;
+                        self.player.knowsTarget = NO;
+                        [self.player save];
+                        
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            
+                            UINavigationController* navController = [self.navigationController.tabBarController.viewControllers firstObject];
+                            GamestateViewController* gameState = [navController.viewControllers firstObject];
+                            gameState.storedDate = nil;
+                        });
+                    });
+                }];
+            }];
+        }
     }];
-    //self.targetImageView.image = image;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -151,6 +170,37 @@
     
     return [UIImage imageWithCGImage:cgiImage scale:1 orientation:originalOrientation];
     
+}
+
+-(void)showDeadUI{
+    self.assassinateButton.hidden = YES;
+    UILabel* label = [[UILabel alloc] initWithFrame:CGRectZero];
+    label.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:label];
+    label.text = @"You are dead";
+    UIFont* assassinFont = [UIFont fontWithName:@"courier" size:24];
+    label.font = assassinFont;
+    
+    [self.view addConstraint: [NSLayoutConstraint constraintWithItem:label
+                                                           attribute:NSLayoutAttributeTop
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:self.targetImageView
+                                                           attribute:NSLayoutAttributeBottom
+                                                          multiplier:1
+                                                            constant:16.0]];
+    
+    [self.view addConstraint: [NSLayoutConstraint constraintWithItem:label
+                                                           attribute:NSLayoutAttributeCenterX
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:self.view
+                                                           attribute:NSLayoutAttributeCenterX
+                                                          multiplier:1
+                                                            constant:0.0]];
+    
+    [self.player.deadPhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
+        self.targetImageView.image = [UIImage imageWithData:imageData];
+    }];
+
 }
 
 
