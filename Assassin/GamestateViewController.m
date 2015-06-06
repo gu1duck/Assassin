@@ -48,6 +48,26 @@
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
     
+    [self performAlerts];
+    
+    self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:10
+                                                        target:self
+                                                      selector:@selector(updateGameData)
+                                                      userInfo:nil
+                                                       repeats:YES];
+   
+}
+
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [self.updateTimer invalidate];
+    self.updateTimer = nil;
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [super viewWillDisappear:animated];
+}
+
+
+-(void)performAlerts {
     if (self.player.deadPhoto) {
         dispatch_queue_t background_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         
@@ -60,11 +80,12 @@
                 [self.photoView showAlertView:self.view];
                 self.photoAlertVisible = YES;
                 AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+                //self.player.knowsTarget = NO;
             });
         });
     }
     
-    if (!self.player.knowsTarget && !self.photoAlertVisible){
+    else if (!self.player.knowsTarget && !self.photoAlertVisible){
         dispatch_queue_t background_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         
         dispatch_async(background_queue, ^{
@@ -80,21 +101,11 @@
             
         });
     }
-    
-    self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:10
-                                                        target:self
-                                                      selector:@selector(updateGameData)
-                                                      userInfo:nil
-                                                       repeats:YES];
-   
+
 }
 
--(void)viewWillDisappear:(BOOL)animated{
-    [self.updateTimer invalidate];
-    self.updateTimer = nil;
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
-    [super viewWillDisappear:animated];
-}
+
+#pragma mark - CollectionView
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     CGSize size = CGSizeMake(self.view.frame.size.width/2, self.view.frame.size.width/2);
@@ -108,8 +119,6 @@
 -(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     return 0;
 }
-
-#pragma mark - CollectionView
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
@@ -143,6 +152,8 @@
     }
     return cell;
 }
+
+
 
 -(void)updateGameData {
     
