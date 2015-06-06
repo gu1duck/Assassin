@@ -12,6 +12,7 @@
 #import "PlayerCollectionViewCell.h"
 #import "GameStateDetailViewController.h"
 #import "PhotoView.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 @interface GamestateViewController () <PhotoViewDelegate>
 
@@ -47,6 +48,21 @@
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
     
+    if (self.player.deadPhoto) {
+        dispatch_queue_t background_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        
+        dispatch_async(background_queue, ^{
+            [self.player fetchIfNeeded];
+            UIImage *deadPhoto = [self.player downloadDeadPhoto];
+            self.photoView = [[PhotoView alloc]initWithImage:deadPhoto label:self.player.name andCaption:@"You've been Assassinated!"];
+            self.photoView.delegate = self;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.photoView showAlertView:self.view];
+                self.photoAlertVisible = YES;
+                AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+            });
+        });
+    }
     
     if (!self.player.knowsTarget && !self.photoAlertVisible){
         dispatch_queue_t background_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
