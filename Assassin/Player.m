@@ -23,6 +23,7 @@
 @dynamic target;
 @dynamic knowsTarget;
 @dynamic knowsDead;
+@dynamic knowsWinner;
 
 + (void)load {
     [self registerSubclass];

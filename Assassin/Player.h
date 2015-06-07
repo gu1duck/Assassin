@@ -22,6 +22,7 @@
 @property (nonatomic) BOOL host;
 @property (nonatomic) BOOL current;
 @property (nonatomic) BOOL knowsTarget;
+@property (nonatomic) BOOL knowsWinner;
 
 + (NSString *) parseClassName;
 - (void) setupWithGame: (Game*) game;

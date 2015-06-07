@@ -21,7 +21,6 @@
 @property (nonatomic) PhotoView* photoView;
 @property BOOL photoAlertVisible;
 
-
 @end
 
 @implementation GamestateViewController
@@ -29,12 +28,12 @@
 - (void)viewDidLoad {
     
     
-    PFQuery *playersInGame = [[PFQuery alloc] initWithClassName:[Player parseClassName]];
-    [playersInGame whereKey:@"game" equalTo:self.game];
-    [playersInGame findObjectsInBackgroundWithBlock:^(NSArray* results, NSError* error){
-        self.players = results;
-        [self.collectionView reloadData];
-    }];
+//    PFQuery *playersInGame = [[PFQuery alloc] initWithClassName:[Player parseClassName]];
+//    [playersInGame whereKey:@"game" equalTo:self.game];
+//    [playersInGame findObjectsInBackgroundWithBlock:^(NSArray* results, NSError* error){
+//        self.players = results;
+//        [self.collectionView reloadData];
+//    }];
     
 
 }
@@ -55,7 +54,12 @@
                                                       selector:@selector(updateGameData)
                                                       userInfo:nil
                                                        repeats:YES];
-   
+    PFQuery *playersInGame = [[PFQuery alloc] initWithClassName:[Player parseClassName]];
+    [playersInGame whereKey:@"game" equalTo:self.game];
+    [playersInGame findObjectsInBackgroundWithBlock:^(NSArray* results, NSError* error){
+        self.players = results;
+        [self.collectionView reloadData];
+    }];
 }
 
 
@@ -68,7 +72,32 @@
 
 
 -(void)performAlerts {
-    if (self.player.deadPhoto && !self.player.knowsDead) {
+    
+    if (self.game.winner && !self.player.knowsWinner && !self.photoAlertVisible){
+        dispatch_queue_t background_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        
+        dispatch_async(background_queue, ^{
+            [self.player fetchIfNeeded];
+            [self.game.winner fetchIfNeeded];
+            UIImage *winnerPhoto = [self.game.winner downloadAlivePhoto];
+            NSString* winnerMessage;
+            if (self.player == self.game.winner){
+                winnerMessage = @"You won the game";
+            } else{
+                winnerMessage = [NSString stringWithFormat:@"%@ won the game", self.game.winner.name];
+            }
+            self.photoView = [[PhotoView alloc]initWithImage:winnerPhoto label:self.game.winner.name andCaption:winnerMessage];
+            self.photoView.delegate = self;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.photoView showAlertView:self.view];
+                self.photoAlertVisible = YES;
+                AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+                self.player.knowsWinner = YES;
+            });
+        });
+
+    }
+    if (self.player.deadPhoto && !self.player.knowsDead && !self.photoAlertVisible) {
         dispatch_queue_t background_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         
         dispatch_async(background_queue, ^{
@@ -130,9 +159,6 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     PlayerCollectionViewCell *cell =[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-    
-    //    cell.playerImageView.image = [UIImage imageNamed:@"Jer"];
-    //    cell.playerNameLabel.text = @"Jeremy";
     
     Player *aPlayer = self.players[indexPath.row];
     
