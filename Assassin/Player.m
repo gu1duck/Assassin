@@ -9,7 +9,6 @@
 #import "Player.h"
 #import <Parse/PFObject+Subclass.h>
 
-
 @implementation Player
 
 @dynamic game;
