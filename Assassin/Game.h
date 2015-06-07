@@ -7,7 +7,7 @@
 //
 
 #import <Parse/Parse.h>
-#import "Player.h"
+@class Player;
 
 @interface Game : PFObject <PFSubclassing>
 

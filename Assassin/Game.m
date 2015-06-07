@@ -7,6 +7,7 @@
 //
 
 #import "Game.h"
+#import "Player.h"
 #import <Parse/PFObject+Subclass.h>
 
 
