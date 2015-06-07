@@ -34,6 +34,8 @@
         
         [self showDeadUI];
         
+    } else if (self.player.target == self. player){
+        [self showWinUI];
     } else {
         
         [self.navigationController setNavigationBarHidden:YES animated:animated];
@@ -133,15 +135,16 @@
                         
                         [self.player.target.target fetchIfNeeded];
                         self.player.target = self.player.target.target;
-                        self.player.knowsTarget = NO;
+                        if (self.player.target == self.player){
+                            self.player.game.winner = self.player;
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self showWinUI];
+                            });
+                        } else {
+                            self.player.knowsTarget = NO;
+                        }
                         [self.player save];
                         
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            
-                            UINavigationController* navController = [self.navigationController.tabBarController.viewControllers firstObject];
-                            GamestateViewController* gameState = [navController.viewControllers firstObject];
-                            gameState.storedDate = nil;
-                        });
                     });
                 }];
             }];
@@ -202,6 +205,38 @@
     }];
 
 }
+
+-(void)showWinUI{
+    self.assassinateButton.hidden = YES;
+    UILabel* label = [[UILabel alloc] initWithFrame:CGRectZero];
+    label.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:label];
+    label.text = @"You won the game";
+    UIFont* assassinFont = [UIFont fontWithName:@"courier" size:24];
+    label.font = assassinFont;
+    
+    [self.view addConstraint: [NSLayoutConstraint constraintWithItem:label
+                                                           attribute:NSLayoutAttributeTop
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:self.targetImageView
+                                                           attribute:NSLayoutAttributeBottom
+                                                          multiplier:1
+                                                            constant:16.0]];
+    
+    [self.view addConstraint: [NSLayoutConstraint constraintWithItem:label
+                                                           attribute:NSLayoutAttributeCenterX
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:self.view
+                                                           attribute:NSLayoutAttributeCenterX
+                                                          multiplier:1
+                                                            constant:0.0]];
+    
+    [self.player.alivePhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
+        self.targetImageView.image = [UIImage imageWithData:imageData];
+    }];
+    
+}
+
 
 
 /*

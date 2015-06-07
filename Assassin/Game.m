@@ -7,6 +7,7 @@
 //
 
 #import "Game.h"
+#import "Player.h"
 #import <Parse/PFObject+Subclass.h>
 
 
@@ -15,6 +16,7 @@
 @dynamic joinPIN;
 @dynamic joinable;
 @dynamic name;
+@dynamic winner;
 @synthesize players = _players;
 
 + (void)load {

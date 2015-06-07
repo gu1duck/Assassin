@@ -9,6 +9,7 @@
 #import <Parse/Parse.h>
 #import "Game.h"
 
+
 @interface Player : PFObject <PFSubclassing>
 
 @property (nonatomic) Game* game;
@@ -22,6 +23,7 @@
 @property (nonatomic) BOOL host;
 @property (nonatomic) BOOL current;
 @property (nonatomic) BOOL knowsTarget;
+@property (nonatomic) BOOL knowsWinner;
 
 + (NSString *) parseClassName;
 - (void) setupWithGame: (Game*) game;

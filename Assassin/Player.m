@@ -9,7 +9,6 @@
 #import "Player.h"
 #import <Parse/PFObject+Subclass.h>
 
-
 @implementation Player
 
 @dynamic game;
@@ -23,6 +22,7 @@
 @dynamic target;
 @dynamic knowsTarget;
 @dynamic knowsDead;
+@dynamic knowsWinner;
 
 + (void)load {
     [self registerSubclass];
