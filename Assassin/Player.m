@@ -22,6 +22,7 @@
 @dynamic current;
 @dynamic target;
 @dynamic knowsTarget;
+@dynamic knowsDead;
 
 + (void)load {
     [self registerSubclass];

@@ -68,7 +68,7 @@
 
 
 -(void)performAlerts {
-    if (self.player.deadPhoto) {
+    if (self.player.deadPhoto && !self.player.knowsDead) {
         dispatch_queue_t background_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         
         dispatch_async(background_queue, ^{
@@ -80,7 +80,7 @@
                 [self.photoView showAlertView:self.view];
                 self.photoAlertVisible = YES;
                 AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
-                //self.player.knowsTarget = NO;
+                self.player.knowsDead = YES;
             });
         });
     }
