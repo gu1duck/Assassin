@@ -59,6 +59,11 @@
 }
 
 -(void)textFieldDidEndEditing:(UITextField *)textField{
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        self.player.name = self.nameTextField.text;
+        [self.player save];
+    });
     [UIView animateWithDuration:0.2 animations:^{
         self.view.frame = [[UIScreen mainScreen] bounds];
     }];
@@ -93,18 +98,19 @@
         HopperViewController* hopper = segue.destinationViewController;
         hopper.game = self.game;
         hopper.player = self.player;
+        [hopper updateGameData];
         
-        dispatch_queue_t background_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        
-        dispatch_async(background_queue, ^{
-            self.player.name = self.nameTextField.text;
-            [self.player uploadAlivePhoto:self.image];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [hopper updateGameData];
-                
-            });
-        });
+//        dispatch_queue_t background_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//        
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//            //self.player.name = self.nameTextField.text;
+//            //[self.player uploadAlivePhoto:self.image];
+//            
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [hopper updateGameData];
+//                
+//            });
+//        });
     }
 }
 
@@ -150,8 +156,12 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     self.image = [self desaturateImage:info [UIImagePickerControllerEditedImage]];
+    self.photoImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.photoImageView.image = self.image;
     [self dismissViewControllerAnimated:YES completion:nil];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self.player uploadAlivePhoto:self.image];
+    });
 }
 
 
