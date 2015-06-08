@@ -27,6 +27,11 @@
     // Do any additional setup after loading the view.
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    [self.joinGameTextField becomeFirstResponder];
+
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

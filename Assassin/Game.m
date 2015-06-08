@@ -44,7 +44,7 @@
 }
 
 - (NSString*)randomPin{
-    NSString *alphabet = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    NSString *alphabet = @"abcdefghijklmnopqrstuvwxyz";
     __block NSMutableString *string = [@"" mutableCopy];
     for (int i = 0; i<4; i++) {
         [string appendFormat: @"%C", [alphabet characterAtIndex: arc4random_uniform((int)[alphabet length])]];

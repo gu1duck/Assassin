@@ -75,7 +75,7 @@
 
 -(void) hideHostUI{
     if ( self.player.host == NO ) {
-        self.headerTopMargin.constant -=75;
+        self.headerTopMargin.constant -=95;
         self.footerBottomMargin.constant -=75;
         
 //        self.headerConstraint.constant = 0;
