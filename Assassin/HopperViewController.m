@@ -109,21 +109,33 @@
     
     PFQuery *gameData = [[PFQuery alloc] initWithClassName:[Game parseClassName]];
     [gameData whereKey:@"objectId" equalTo:self.game.objectId];
-  //  [gameData whereKey:@"updatedAt" notEqualTo:self.game.updatedAt];
-    [gameData findObjectsInBackgroundWithBlock:^(NSArray *results, NSError* error){
-        Game *fetchedGame = [results firstObject];
+    [gameData findObjectsInBackgroundWithBlock:^(NSArray *gameResults, NSError* error){
+        Game *fetchedGame = [gameResults firstObject];
         if (fetchedGame.joinable){
-            if ( [self.storedDate isEqualToDate:fetchedGame.updatedAt] ) {
-                return;
-            }
-            
-            else
+            if (![self.storedDate isEqualToDate:fetchedGame.updatedAt])
             {
                 PFQuery *playersInGame = [[PFQuery alloc] initWithClassName:[Player parseClassName]];
+                
                 [playersInGame whereKey:@"game" equalTo:self.game];
                 [playersInGame findObjectsInBackgroundWithBlock:^(NSArray* results, NSError* error){
-                    self.players = results;
-                    [self.collectionView reloadData];
+                    
+                    NSArray* sortedResults = [results sortedArrayUsingComparator:^NSComparisonResult(Player* obj1, Player* obj2) {
+                        if (obj1.createdAt.timeIntervalSince1970 > obj2.createdAt.timeIntervalSince1970){
+                            return NSOrderedDescending;
+                        } else if (obj1.createdAt.timeIntervalSince1970 > obj2.createdAt.timeIntervalSince1970)  {
+                            return NSOrderedAscending;
+                        }
+                        return NSOrderedSame;
+                    }];
+                    int firstNewIndex = (int)self.players.count;
+                    self.players = sortedResults;
+                    NSMutableArray* paths = [@[] mutableCopy];
+                    for (int i =firstNewIndex; i < self.players.count; i++ ){
+                        NSIndexPath* path = [NSIndexPath indexPathForRow:i inSection:0];
+                        [paths addObject:path];
+                    }
+                    [self.collectionView insertItemsAtIndexPaths:paths];
+                    //[self.collectionView reloadData];
                     [self assignPlayerTargets];
                 }];
                 self.storedDate = fetchedGame.updatedAt;
@@ -226,21 +238,32 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     PlayerCollectionViewCell *cell =[collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    cell.playerImageView.image = [UIImage imageNamed:@"placeholder"];
     
     Player *aPlayer = self.players[indexPath.row];
     
     cell.playerNameLabel.text = aPlayer.name;
     
     if (aPlayer.deadPhoto) {
+        
         [aPlayer.deadPhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
             cell.playerImageView.image = [UIImage imageWithData:imageData];
         }];
     }
     else
     {
-        [aPlayer.alivePhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
-            cell.playerImageView.image = [UIImage imageWithData:imageData];
-        }];
+        dispatch_queue_t background_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        dispatch_async(background_queue, ^{
+            NSData* photoData = [aPlayer.alivePhoto getData];
+            UIImage* photoImage = [UIImage imageWithData: photoData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                cell.playerImageView.image = photoImage;
+            });
+        });
+
+//        [aPlayer.alivePhoto getDataInBackgroundWithBlock:^(NSData* imageData, NSError* error){
+//            cell.playerImageView.image = [UIImage imageWithData:imageData];
+//        }];
         
     }
     return cell;
