@@ -10,8 +10,6 @@
 #import <Parse/Parse.h>
 
 @interface StartScreenVIewController ()
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *buttonsBottomMargin;
-
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @end
 
@@ -19,9 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.buttonsBottomMargin.constant = -225;
-    }
-
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -29,6 +25,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
    
+    [super viewWillAppear:animated];
     if ([PFAnonymousUtils isLinkedWithUser:[PFUser currentUser]]) {
         return;
     }
@@ -39,7 +36,6 @@
 
     
     [self.navigationController setNavigationBarHidden:YES animated:animated];
-    [super viewWillAppear:animated];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -48,16 +44,7 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [UIView animateWithDuration:0.2
-                          delay:0
-         usingSpringWithDamping:0.5
-          initialSpringVelocity:0.5
-                        options:0
-                     animations:^{
-        self.buttonsBottomMargin.constant = 0;
-    }
-                     completion:nil];
-    
+    [super viewDidAppear:animated];
 
 }
 

@@ -2,6 +2,8 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -10,22 +12,37 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AssassinImage" translatesAutoresizingMaskIntoConstraints="NO" id="nBm-O0-VEV">
-                    <rect key="frame" x="-137.5" y="0.0" width="755" height="480"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="silhoettes" translatesAutoresizingMaskIntoConstraints="NO" id="nBm-O0-VEV">
+                    <rect key="frame" x="0.0" y="-60" width="480" height="480"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="nBm-O0-VEV" secondAttribute="height" multiplier="1:1" id="pkd-zB-WYR"/>
+                    </constraints>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="nBm-O0-VEV" secondAttribute="trailing" id="1fa-sp-Udt"/>
+                <constraint firstItem="nBm-O0-VEV" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Ftb-71-w7b"/>
                 <constraint firstItem="nBm-O0-VEV" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Qa4-Pj-QuS"/>
                 <constraint firstAttribute="centerX" secondItem="nBm-O0-VEV" secondAttribute="centerX" id="g2t-1n-5j4"/>
+                <constraint firstAttribute="centerY" secondItem="nBm-O0-VEV" secondAttribute="centerY" multiplier="4/3" id="lVs-CE-zeO"/>
+                <constraint firstItem="nBm-O0-VEV" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="m4H-p9-reJ"/>
                 <constraint firstAttribute="bottom" secondItem="nBm-O0-VEV" secondAttribute="bottom" id="nLO-9g-Et5"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="Ftb-71-w7b"/>
+                    <exclude reference="Qa4-Pj-QuS"/>
+                    <exclude reference="g2t-1n-5j4"/>
+                    <exclude reference="nLO-9g-Et5"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="548" y="455"/>
         </view>
     </objects>
     <resources>
-        <image name="AssassinImage" width="755" height="800"/>
+        <image name="silhoettes" width="330" height="330"/>
     </resources>
 </document>

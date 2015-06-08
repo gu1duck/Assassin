@@ -31,6 +31,9 @@
     [player saveInBackgroundWithBlock:^(BOOL success, NSError* error){
             self.player = player;
     }];
+    
+    self.imageView.layer.cornerRadius = self.imageView.frame.size.width/10;
+    self.imageView.layer.masksToBounds = YES;
 
 }
 
