@@ -28,6 +28,9 @@
     self.doneButton.alpha = 0.5;
     self.nameTextField.delegate = self;
     
+    self.photoImageView.layer.cornerRadius = self.photoImageView.frame.size.width/10;
+    self.photoImageView.layer.masksToBounds = YES;
+    
     //Create Player and Game, saving them in the background. Note that this could
     //cause a crash if the user is somehow able to upload an image before this sequence
     //finishes.
