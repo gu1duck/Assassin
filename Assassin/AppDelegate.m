@@ -51,37 +51,37 @@
     [query whereKey:@"current" equalTo:@YES];
     NSArray* players = [query findObjects];
     
-    //if ([players count]==0){
+    if ([players count]==0){
         UINavigationController* navController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
         self.window.rootViewController = navController;
-//    } else {
-//        Player* player = [players firstObject];
-//        Game* game = player.game;
-//        [game fetchIfNeeded];
-//        if (game.joinable){
-//            HopperViewController *hopper = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"hopper"];
-//            hopper.game = game;
-//            hopper.player = player;
-//            self.window.rootViewController = hopper;
-//        } else {
-//            UITabBarController* tabController = [[UIStoryboard storyboardWithName:@"GameInProgress" bundle:nil] instantiateInitialViewController];
-//            UINavigationController* navController = [tabController.viewControllers firstObject];
-//            GamestateViewController* gameState = [navController.viewControllers firstObject];
-//            gameState.player = player;
-//            gameState.game = game;
-//            
-//            UINavigationController* targetNavController = tabController.viewControllers[1];
-//            TargetViewController* target = [targetNavController.viewControllers firstObject];
-//            target.player = player;
-//            
-//            UINavigationController* userNavController = tabController.viewControllers[2];
-//            UserViewController* userView = [userNavController.viewControllers firstObject];
-//            userView.CurrentPlayer = player;
-//            
-//            self.window.rootViewController = tabController;
-//        }
-//    }
-    
+    } else {
+        Player* player = [players firstObject];
+        Game* game = player.game;
+        [game fetchIfNeeded];
+        if (game.joinable){
+            HopperViewController *hopper = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"hopper"];
+            hopper.game = game;
+            hopper.player = player;
+            self.window.rootViewController = hopper;
+        } else {
+            UITabBarController* tabController = [[UIStoryboard storyboardWithName:@"GameInProgress" bundle:nil] instantiateInitialViewController];
+            UINavigationController* navController = [tabController.viewControllers firstObject];
+            GamestateViewController* gameState = [navController.viewControllers firstObject];
+            gameState.player = player;
+            gameState.game = game;
+            
+            UINavigationController* targetNavController = tabController.viewControllers[1];
+            TargetViewController* target = [targetNavController.viewControllers firstObject];
+            target.player = player;
+            
+            UINavigationController* userNavController = tabController.viewControllers[2];
+            UserViewController* userView = [userNavController.viewControllers firstObject];
+            userView.CurrentPlayer = player;
+            
+            self.window.rootViewController = tabController;
+        }
+    }
+
     
         return YES;
 }
