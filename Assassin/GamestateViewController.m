@@ -26,7 +26,13 @@
 @implementation GamestateViewController
 
 - (void)viewDidLoad {
-    
+    PFQuery *playersInGame = [[PFQuery alloc] initWithClassName:[Player parseClassName]];
+    [playersInGame whereKey:@"game" equalTo:self.game];
+    [playersInGame findObjectsInBackgroundWithBlock:^(NSArray* results, NSError* error){
+        self.players = results;
+        [self.collectionView reloadData];
+    }];
+
     
 //    PFQuery *playersInGame = [[PFQuery alloc] initWithClassName:[Player parseClassName]];
 //    [playersInGame whereKey:@"game" equalTo:self.game];
@@ -47,19 +53,12 @@
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
     
-    [self performAlerts];
-    
     self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:10
                                                         target:self
                                                       selector:@selector(updateGameData)
                                                       userInfo:nil
                                                        repeats:YES];
-    PFQuery *playersInGame = [[PFQuery alloc] initWithClassName:[Player parseClassName]];
-    [playersInGame whereKey:@"game" equalTo:self.game];
-    [playersInGame findObjectsInBackgroundWithBlock:^(NSArray* results, NSError* error){
-        self.players = results;
-        [self.collectionView reloadData];
-    }];
+    [self updateGameData];
 }
 
 
@@ -97,7 +96,7 @@
         });
 
     }
-    if (self.player.deadPhoto && !self.player.knowsDead && !self.photoAlertVisible) {
+    else if (self.player.deadPhoto && !self.player.knowsDead && !self.photoAlertVisible) {
         dispatch_queue_t background_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         
         dispatch_async(background_queue, ^{
@@ -183,26 +182,52 @@
 
 -(void)updateGameData {
     
-    PFQuery *gameData = [[PFQuery alloc]initWithClassName:[Game parseClassName]];
-    [gameData whereKey:@"objectId" equalTo:self.game.objectId];
-    [gameData findObjectsInBackgroundWithBlock:^(NSArray *results, NSError *error){
-        Game *fetchedGame = [results firstObject];
-        
-        if ([self.storedDate isEqualToDate:fetchedGame.updatedAt]) {
-            return;
-        }
-        else
-        {
+//    PFQuery *gameData = [[PFQuery alloc]initWithClassName:[Game parseClassName]];
+//    [gameData whereKey:@"objectId" equalTo:self.game.objectId];
+//    [gameData findObjectsInBackgroundWithBlock:^(NSArray *results, NSError *error){
+//        Game *fetchedGame = [results firstObject];
+//        
+//        if ([self.storedDate isEqualToDate:fetchedGame.updatedAt]) {
+//            return;
+//        }
+//        else
+//        {
+    
+    NSMutableArray* playerStatus = [@[] mutableCopy];
+    for (Player* player in self.players){
+        NSNumber* status = [NSNumber numberWithBool:player.dead];
+        [playerStatus addObject:status];
+    }
             PFQuery *playersInGame = [[PFQuery alloc] initWithClassName:[Player parseClassName]];
             [playersInGame whereKey:@"game" equalTo:self.game];
             [playersInGame findObjectsInBackgroundWithBlock:^(NSArray* results, NSError* error){
-                self.players = results;
-                [self.collectionView reloadData];
+                NSArray* sortedResults = [results sortedArrayUsingComparator:^NSComparisonResult(Player* obj1, Player* obj2) {
+                    if (obj1.createdAt.timeIntervalSince1970 > obj2.createdAt.timeIntervalSince1970){
+                        return NSOrderedDescending;
+                    } else if (obj1.createdAt.timeIntervalSince1970 > obj2.createdAt.timeIntervalSince1970)  {
+                        return NSOrderedAscending;
+                    }
+                    return NSOrderedSame;
+                }];
+
+                int count = 0;
+                NSMutableArray* paths = [@[] mutableCopy];
+                
+                for(Player* player in sortedResults){
+                    NSNumber* previouslyDead = playerStatus[count];
+                    if (![previouslyDead boolValue] && player.dead){
+                        NSIndexPath* updatePath = [NSIndexPath indexPathForItem:count inSection:0];
+                        [paths addObject:updatePath];
+                    }
+                    count ++;
+                }
+                self.players = sortedResults;
+                [self.collectionView reloadItemsAtIndexPaths:paths];
             }];
-            self.storedDate = fetchedGame.updatedAt;
-        }
-    }];
-    
+          //  self.storedDate = fetchedGame.updatedAt;
+       // }
+    //}];
+        [self performAlerts];
 }
 
 -(void)handleTapGesture: (UITapGestureRecognizer*)tap{
@@ -218,6 +243,7 @@
                              self.player.knowsTarget = YES;
                              [self.player saveInBackground];
                              self.photoAlertVisible = NO;
+                             [self performAlerts];
                          }];
     }
 }
